@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome to fakelymail</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body.dark-mode a.footer-link {
+  color: #ffffff !important;
+}
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f6fa;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #2f3640;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #636e72;
+      margin: 1rem 0 2rem;
+    }
+
+    button {
+      padding: 14px 20px;
+      font-size: 1.5rem;
+      background-color: #0984e3;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #007acc;
+    }
+
+    #toggle-mode {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      padding: 8px 14px;
+      background: #2d3436;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .logo-container {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+    }
+
+    .logo {
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+    .logo:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    body.dark-mode {
+      background-color: #2f3640;
+      color: #dfe6e9;
+    }
+
+    body.dark-mode h1 {
+      color: #ffffff;
+    }
+
+    body.dark-mode p {
+      color: #b2bec3;
+    }
+
+    body.dark-mode button {
+      background-color: #0984e3;
+    }
+
+    body.dark-mode #toggle-mode {
+      background: #0984e3;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- الشعار -->
+  <div class="logo-container">
+    <a href="/">
+      <img src="/static/logo.png" alt="Fakelymail Logo" class="logo">
+    </a>
+  </div>
+
+  <!-- زر الوضع الليلي -->
+  <button id="toggle-mode" onclick="toggleMode()">🌙</button>
+
+  <!-- المحتوى -->
+  <h1>Welcome to fakelymail</h1>
+  <p>Your instant, disposable email — no sign up, no hassle.</p>
+
+  <!-- زر الدخول كأيقونة -->
+  <button title="Go to inbox" onclick="window.location.href='/email'">📨</button>
+
+  <script>
+    function toggleMode() {
+      const body = document.body;
+      body.classList.toggle('dark-mode');
+      const isDark = body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDark);
+      document.getElementById("toggle-mode").innerText = isDark ? "☀️" : "🌙";
+    }
+
+    window.onload = () => {
+      const isDark = localStorage.getItem('darkMode') === 'true';
+      if (isDark) {
+        document.body.classList.add('dark-mode');
+        document.getElementById("toggle-mode").innerText = "☀️";
+      }
+    }
+  </script>
+<div style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: gray;">
+    <a href="/privacy" class="footer-link" style="color: #0984e3; text-decoration: none; margin-right: 15px;">Privacy Policy</a>
+    <a href="/contact" class="footer-link" style="color: #0984e3; text-decoration: none;">Contact</a>
+  </div>
+</body>
+</html>

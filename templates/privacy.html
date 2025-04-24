@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Privacy Policy - Fakelymail</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f6fa;
+      color: #2f3640;
+      padding: 2rem;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    h1, h2 {
+      color: #2d3436;
+    }
+
+    p {
+      line-height: 1.6;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 1rem;
+    }
+
+    .logo-container {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+    }
+
+    .logo {
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+    #toggle-mode {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      padding: 8px 14px;
+      background: #2d3436;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    body.dark-mode {
+      background: #2f3640;
+      color: #dfe6e9;
+    }
+
+    body.dark-mode h1, body.dark-mode h2 {
+      color: #ffffff;
+    }
+
+    body.dark-mode #toggle-mode {
+      background: #0984e3;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo-container">
+    <a href="/">
+      <img src="/static/logo.png" alt="Fakelymail Logo" class="logo">
+    </a>
+  </div>
+
+  <button id="toggle-mode" onclick="toggleMode()">🌙</button>
+
+  <div class="container">
+    <h1>Privacy Policy</h1>
+    <p>At Fakelymail, your privacy is important to us.</p>
+
+    <h2>What We Collect</h2>
+    <p>We do not collect any personal information. All email addresses generated are temporary and deleted automatically after a short time.</p>
+
+    <h2>Message Data</h2>
+    <p>Email messages received are stored temporarily to be viewed by the user, then automatically deleted. We do not share or analyze this data.</p>
+
+    <h2>Cookies & Tracking</h2>
+    <p>We do not use cookies or any form of tracking technologies.</p>
+
+    <h2>Third-Party Services</h2>
+    <p>We do not use or integrate with any third-party services that collect personal information.</p>
+
+    <h2>Changes to This Policy</h2>
+    <p>This privacy policy may be updated in the future. We encourage you to check this page regularly.</p>
+
+    <h2>Contact</h2>
+    <p>If you have any questions about this policy, please contact us at: contact@fakelymail.com</p>
+  </div>
+
+  <script>
+    function toggleMode() {
+      const body = document.body;
+      body.classList.toggle('dark-mode');
+      const isDark = body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDark);
+      document.getElementById("toggle-mode").innerText = isDark ? "☀️" : "🌙";
+    }
+
+    window.onload = () => {
+      const isDark = localStorage.getItem('darkMode') === 'true';
+      if (isDark) {
+        document.body.classList.add('dark-mode');
+        document.getElementById("toggle-mode").innerText = "☀️";
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact - Fakelymail</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f6fa;
+      color: #2f3640;
+      padding: 2rem;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 1rem;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    p {
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .logo-container {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+    }
+
+    .logo {
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+    #toggle-mode {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      padding: 8px 14px;
+      background: #2d3436;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .back-button {
+      display: block;
+      margin: 2rem auto 0;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background: #0984e3;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      width: fit-content;
+    }
+
+    body.dark-mode {
+      background-color: #2f3640;
+      color: #dfe6e9;
+    }
+
+    body.dark-mode #toggle-mode {
+      background: #0984e3;
+      color: white;
+    }
+
+    body.dark-mode .back-button {
+      background: #0984e3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo-container">
+    <a href="/">
+      <img src="/static/logo.png" alt="Fakelymail Logo" class="logo">
+    </a>
+  </div>
+
+  <button id="toggle-mode" onclick="toggleMode()">🌙</button>
+
+  <div class="container">
+    <h1>Contact Us</h1>
+    <p>Have questions, feedback, or need support?</p>
+    <p>Reach out to us anytime at:<br><strong>fakelymail@gmail.com</strong></p>
+
+    <a class="back-button" href="/">← Back to Home</a>
+  </div>
+
+  <script>
+    function toggleMode() {
+      const body = document.body;
+      body.classList.toggle('dark-mode');
+      const isDark = body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDark);
+      document.getElementById("toggle-mode").innerText = isDark ? "☀️" : "🌙";
+    }
+
+    window.onload = () => {
+      const isDark = localStorage.getItem('darkMode') === 'true';
+      if (isDark) {
+        document.body.classList.add('dark-mode');
+        document.getElementById("toggle-mode").innerText = "☀️";
+      }
+    }
+  </script>
+
+</body>
+</html>

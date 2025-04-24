@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>fakelymail - Temporary Email</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f6fa;
+      margin: 0;
+      padding: 0;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 2rem 1rem;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2f3640;
+    }
+
+    .email-box {
+      background: #fff;
+      border: 1px solid #dcdde1;
+      padding: 1rem;
+      border-radius: 10px;
+      margin: 1rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .email-address {
+      font-size: 1.1rem;
+      word-break: break-word;
+      flex: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .buttons-group {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 1rem 0;
+    }
+
+    button {
+      background: #0984e3;
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease;
+    }
+
+    #toggle-mode {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      padding: 8px 14px;
+      background: #2d3436;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .timer-box {
+      display: inline-block;
+      padding: 10px 16px;
+      background-color: #ffeaa7;
+      color: #2d3436;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      margin: 1rem auto;
+    }
+
+    .message {
+      background: #dfe6e9;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .msg-header {
+      font-weight: bold;
+    }
+
+    .logo-container {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+    }
+
+    .logo {
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+    .logo:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #2ecc71;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px;
+      display: none;
+      z-index: 1000;
+    }
+
+    body.dark-mode {
+      background: #2f3640;
+      color: #dfe6e9;
+    }
+
+    body.dark-mode h1 {
+      color: #ffffff;
+    }
+
+    body.dark-mode .email-box {
+      background: #3d3d3d;
+      border-color: #636e72;
+    }
+
+    body.dark-mode .message {
+      background: #444;
+      color: #dfe6e9;
+    }
+
+    body.dark-mode button {
+      background: #0984e3;
+    }
+
+    body.dark-mode #toggle-mode {
+      background: #0984e3;
+      color: white;
+    }
+
+    body.dark-mode .timer-box {
+      background-color: #636e72;
+      color: #fff;
+    }
+
+    @media (max-width: 600px) {
+      .email-box {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .email-address {
+        width: 100%;
+        margin-bottom: 10px;
+     
+      }
+    }body.dark-mode a.footer-link {
+  color: #ffffff !important;
+}
+  </style>
+</head>
+<body>
+
+  <div class="logo-container">
+    <a href="/">
+      <img src="/static/logo.png" alt="Fakelymail Logo" class="logo">
+    </a>
+  </div>
+
+  <button id="toggle-mode" onclick="toggleMode()">🌙</button>
+
+  <div class="container">
+    <h1>fakelymail</h1>
+
+    <div class="buttons-group">
+      <button title="📋 Copy All" onclick="copyAllMessages()">📋</button>
+      <button title="📥 Download" onclick="downloadMessages()">📥</button>
+    </div>
+
+    <p style="text-align:center;">Your temporary email address:</p>
+    <div class="email-box">
+      <div class="email-address" id="email">{{ email }}</div>
+      <div>
+        <button title="📋 Copy Email" onclick="copyEmail()">📋</button>
+        <button title="🔄 Change Email" onclick="changeEmail()">🔄</button>
+      </div>
+    </div>
+
+    <div id="timer" class="timer-box">⏳ {{ timer }}s</div>
+
+    <h2>Inbox</h2>
+    <div id="messages">Loading...</div>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.innerText = msg;
+      toast.style.display = "block";
+      setTimeout(() => { toast.style.display = "none"; }, 2000);
+    }
+
+    function copyEmail() {
+      navigator.clipboard.writeText(document.getElementById("email").innerText);
+      showToast("Email copied!");
+    }
+
+    function changeEmail() {
+      fetch('/change').then(() => {
+        location.reload();
+      });
+    }
+
+    function copyAllMessages() {
+      fetch('/messages')
+        .then(res => res.json())
+        .then(data => {
+          if (data.length === 0) return showToast("No messages to copy.");
+          let text = "";
+          data.forEach(msg => {
+            text += `From: ${msg.from}\\nSubject: ${msg.subject}\\n${msg.body}\\n---\\n`;
+          });
+          navigator.clipboard.writeText(text);
+          showToast("All messages copied!");
+        });
+    }
+
+    function downloadMessages() {
+      fetch('/messages')
+        .then(res => res.json())
+        .then(data => {
+          if (data.length === 0) return showToast("No messages to download.");
+          let text = "";
+          data.forEach(msg => {
+            text += `From: ${msg.from}\\nSubject: ${msg.subject}\\n${msg.body}\\n---\\n`;
+          });
+          const blob = new Blob([text], { type: 'text/plain' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "messages.txt";
+          a.click();
+          URL.revokeObjectURL(url);
+        });
+    }
+
+    let timeLeft = {{ timer }};
+    setInterval(() => {
+      if (timeLeft > 0) {
+        timeLeft--;
+        const minutes = Math.floor(timeLeft / 60);
+const seconds = timeLeft % 60;
+document.getElementById("timer").innerText = `⏳ ${minutes}m ${seconds}s`;
+      }
+    }, 1000);
+
+    function loadMessages() {
+      fetch('/messages')
+        .then(res => res.json())
+        .then(data => {
+          const box = document.getElementById("messages");
+          if (data.length === 0) {
+            box.innerHTML = "<p style='color:gray;'>No messages yet.</p>";
+            return;
+          }
+          box.innerHTML = "";
+          data.forEach(msg => {
+            const div = document.createElement("div");
+            div.className = "message";
+            div.innerHTML = `
+              <div class="msg-header">From: ${msg.from}</div>
+              <div><strong>Subject:</strong> ${msg.subject}</div>
+              <div>${msg.body}</div>
+              <small>${msg.timestamp}</small>
+            `;
+            box.appendChild(div);
+          });
+        });
+    }
+
+    setInterval(loadMessages, 5000);
+    loadMessages();
+
+    function toggleMode() {
+      const body = document.body;
+      body.classList.toggle('dark-mode');
+      const isDark = body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDark);
+      document.getElementById("toggle-mode").innerText = isDark ? "☀️" : "🌙";
+    }
+
+    window.onload = () => {
+      const isDark = localStorage.getItem('darkMode') === 'true';
+      if (isDark) {
+        document.body.classList.add('dark-mode');
+        document.getElementById("toggle-mode").innerText = "☀️";
+      }
+    }
+  </script>
+<div style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: gray;">
+  <a href="/privacy" class="footer-link" style="color: #0984e3; text-decoration: none; margin-right: 15px;">Privacy Policy</a>
+  <a href="/contact" class="footer-link" style="color: #0984e3; text-decoration: none;">Contact</a>
+</div>
+
+</body>
+</html>
