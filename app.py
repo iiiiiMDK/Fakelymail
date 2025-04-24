@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, jsonify
 import time, threading, random, string
 from datetime import datetime
 
@@ -50,27 +50,32 @@ def change_email():
 def messages():
     email = session.get('email')
     if not email or email not in inboxes:
-        return []
-    return inboxes[email]['messages']
+        return jsonify([])
+    return jsonify(inboxes[email]['messages'])
 
 # --------- Mailgun Receive Webhook ---------
 @app.route('/receive', methods=['POST'])
 def receive_email():
     data = request.form
+    recipient = data.get('recipient')
     sender = data.get('sender')
     subject = data.get('subject')
     body = data.get('body-plain')
 
-    print(f'\n📨 Email Received!\nFrom: {sender}\nSubject: {subject}\nBody:\n{body}\n')
+    print(f'\n📨 Email Received!\nTo: {recipient}\nFrom: {sender}\nSubject: {subject}\nBody:\n{body}\n')
 
-    email = session.get('email')
-    if email in inboxes:
-        inboxes[email]['messages'].append({
-            'from': sender,
-            'subject': subject,
-            'body': body,
-            'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M')
-        })
+    if recipient not in inboxes:
+        inboxes[recipient] = {
+            'created_at': time.time(),
+            'messages': []
+        }
+
+    inboxes[recipient]['messages'].append({
+        'from': sender,
+        'subject': subject,
+        'body': body,
+        'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M')
+    })
 
     return 'OK', 200
 
