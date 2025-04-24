@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, session, jsonify
-import time, threading, random, string
+from flask import Flask, render_template, request, session, jsonify, redirect
+import random, string, time, threading
 from datetime import datetime
 
 app = Flask(__name__)
@@ -7,20 +7,20 @@ app.secret_key = 'supersecretkey'
 
 inboxes = {}
 
-# توليد ايميل وهمي
+# توليد إيميل وهمي
 def generate_email():
     username = ''.join(random.choices(string.ascii_lowercase + string.digits, k=10))
     domain = 'fakelymail.com'
-    return f"{username}@{domain}"
+    return f'{username}@{domain}'
 
-# حذف الإيميل بعد مدة تلقائيًا
+# حذف تلقائي بعد وقت محدد
 def auto_delete_email(email, lifetime=1800):
     time.sleep(lifetime)
     inboxes.pop(email, None)
 
 @app.route('/')
 def home():
-    return render_template('home.html')  # لو عندك صفحة ترحيبية
+    return render_template('home.html')
 
 @app.route('/email')
 def index():
@@ -46,7 +46,7 @@ def index():
 @app.route('/change')
 def change_email():
     session.pop('email', None)
-    return '', 204
+    return redirect('/email')
 
 @app.route('/messages')
 def get_messages():
@@ -58,21 +58,26 @@ def get_messages():
 @app.route('/receive', methods=['POST'])
 def receive_email():
     data = request.form
-    sender = data.get('sender')
-    subject = data.get('subject')
-    body = data.get('body-plain')
     email = data.get('recipient')
+    subject = data.get('subject')
+    body = data.get('body-plain') or data.get('stripped-text')
+    sender = data.get('sender')
 
-    if email in inboxes:
-        inboxes[email]['messages'].append({
-            'from': sender,
-            'subject': subject,
-            'body': body,
-            'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        })
+    if email not in inboxes:
+        inboxes[email] = {
+            'created_at': time.time(),
+            'messages': []
+        }
+
+    inboxes[email]["messages"].append({
+        "from": sender,
+        "subject": subject,
+        "body": body,
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M")
+    })
 
     print(f'New email for {email}\nFrom: {sender}\nSubject: {subject}\nBody:\n{body}')
-    return 'OK', 200
+    return "OK", 200
 
 @app.route('/privacy')
 def privacy():
