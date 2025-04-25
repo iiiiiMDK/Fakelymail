@@ -1,69 +1,73 @@
-window.addEventListener('DOMContentLoaded', function () {
-    if (localStorage.getItem('consentGiven') !== 'true' && localStorage.getItem('consentGiven') !== 'false') {
+document.addEventListener('DOMContentLoaded', function () {
+    if (!localStorage.getItem('cookieConsent')) {
       const banner = document.createElement('div');
-      banner.id = "cookie-banner";
-      banner.style.position = "fixed";
-      banner.style.bottom = "0";
-      banner.style.left = "0";
-      banner.style.width = "100%";
-      banner.style.background = "#fff";
-      banner.style.borderTop = "1px solid #ccc";
-      banner.style.padding = "15px";
-      banner.style.textAlign = "center";
-      banner.style.zIndex = "9999";
-      banner.style.opacity = "0";
-      banner.style.transition = "opacity 0.8s ease";
-      banner.style.boxShadow = "0 -2px 10px rgba(0,0,0,0.1)";
-      banner.style.display = "flex";
-      banner.style.flexDirection = "column";
-      banner.style.alignItems = "center";
-      banner.style.justifyContent = "center";
-      banner.style.fontSize = "14px";
+      banner.id = 'cookie-banner';
+      banner.style.cssText = `
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: #ffffff;
+        border-top: 1px solid #ccc;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        padding: 15px;
+        text-align: center;
+        font-size: 14px;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.8s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      `;
   
       banner.innerHTML = `
         <span style="margin-bottom:10px;">We use cookies to enhance your experience. Do you consent to the use of cookies?</span>
         <div>
-          <button id="acceptConsent" style="padding:8px 16px; margin:5px; background:#4CAF50; color:white; border:none; border-radius:4px; cursor:pointer;">Accept</button>
-          <button id="declineConsent" style="padding:8px 16px; margin:5px; background:#e74c3c; color:white; border:none; border-radius:4px; cursor:pointer;">Decline</button>
+          <button id="acceptCookies" style="padding:8px 16px; margin:5px; background:#4CAF50; color:white; border:none; border-radius:4px; cursor:pointer;">Accept</button>
+          <button id="declineCookies" style="padding:8px 16px; margin:5px; background:#e74c3c; color:white; border:none; border-radius:4px; cursor:pointer;">Decline</button>
         </div>
       `;
+  
       document.body.appendChild(banner);
   
       setTimeout(() => {
-        banner.style.opacity = "1";
-      }, 100); // يخليه يظهر بشكل ناعم
+        banner.style.opacity = 1;
+      }, 100);
   
-      document.getElementById('acceptConsent').onclick = function () {
-        localStorage.setItem('consentGiven', 'true');
-        fadeOutBanner();
+      document.getElementById('acceptCookies').addEventListener('click', function () {
+        localStorage.setItem('cookieConsent', 'accepted');
         enableAnalytics();
-      };
+        hideBanner();
+      });
   
-      document.getElementById('declineConsent').onclick = function () {
-        localStorage.setItem('consentGiven', 'false');
-        fadeOutBanner();
-      };
+      document.getElementById('declineCookies').addEventListener('click', function () {
+        localStorage.setItem('cookieConsent', 'declined');
+        hideBanner();
+      });
   
-      function fadeOutBanner() {
-        banner.style.opacity = "0";
+      function hideBanner() {
+        banner.style.opacity = 0;
         setTimeout(() => {
           banner.remove();
         }, 800);
       }
-    } else if (localStorage.getItem('consentGiven') === 'true') {
+    } else if (localStorage.getItem('cookieConsent') === 'accepted') {
       enableAnalytics();
     }
   
     function enableAnalytics() {
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = "https://www.googletagmanager.com/gtag/js?id=G-PDD8WTVWD4"; // غيره لكودك
-      document.head.appendChild(script);
+      const analyticsScript = document.createElement('script');
+      analyticsScript.async = true;
+      analyticsScript.src = "https://www.googletagmanager.com/gtag/js?id=G-PDD8WTVWD4"; // غير G-XXXXXXXXXX لكودك
+      document.head.appendChild(analyticsScript);
   
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){ dataLayer.push(arguments); }
-      gtag('js', new Date());
-      gtag('config', 'G-PDD8WTVWD4'); // غيره لكودك
+      analyticsScript.onload = function() {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-PDD8WTVWD4'); // وغير هذا لكودك
+      };
     }
   });
   
