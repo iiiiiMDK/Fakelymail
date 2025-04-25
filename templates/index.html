@@ -11,7 +11,7 @@
   <meta property="og:description" content="Check your inbox and read emails received on your disposable Fakelymail address.">
   <meta property="og:url" content="https://fakelymail.com/email">
   <meta name="twitter:card" content="summary_large_image">
-  
+  <script src="/static/consent.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PD08MTWD4J"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -339,6 +339,10 @@ document.getElementById("timer").innerText = `⏳ ${minutes}m ${seconds}s`;
   <a href="/privacy" class="footer-link" style="color: #0984e3; text-decoration: none; margin-right: 15px;">Privacy Policy</a>
   <a href="/contact" class="footer-link" style="color: #0984e3; text-decoration: none;">Contact</a>
 </div>
-
+<div id="cookie-banner" style="position: fixed; bottom: 0; background: #eee; padding: 15px; width: 100%; text-align: center; z-index: 9999;">
+  We use cookies to enhance your experience. Do you consent to the use of cookies?
+  <button onclick="acceptCookies()" style="margin: 0 10px;">Accept</button>
+  <button onclick="rejectCookies()">Decline</button>
+</div>
 </body>
 </html>
