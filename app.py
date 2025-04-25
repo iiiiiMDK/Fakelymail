@@ -85,8 +85,6 @@ def receive_email():
 
     return "OK", 200
 
-from flask import send_from_directory
-
 @app.route('/robots.txt')
 def robots():
     return send_from_directory('static', 'robots.txt')
