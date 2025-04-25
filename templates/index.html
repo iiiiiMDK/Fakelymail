@@ -339,27 +339,31 @@ document.getElementById("timer").innerText = `⏳ ${minutes}m ${seconds}s`;
   <a href="/privacy" class="footer-link" style="color: #0984e3; text-decoration: none; margin-right: 15px;">Privacy Policy</a>
   <a href="/contact" class="footer-link" style="color: #0984e3; text-decoration: none;">Contact</a>
 </div>
-<div id="cookie-banner" style="position: fixed; bottom: 0; width: 100%; background: #fff; border-top: 1px solid #ccc; padding: 10px; text-align: center; z-index: 9999; font-size: 14px; display: none;">
-  <span>We use cookies to enhance your experience. Do you consent to the use of cookies?</span><br>
-  <button onclick="acceptCookies()" style="padding:8px 14px; margin:8px; background:#4CAF50; color:white; border:none; border-radius:4px;">Accept</button>
-  <button onclick="declineCookies()" style="padding:8px 14px; margin:8px; background:#e74c3c; color:white; border:none; border-radius:4px;">Decline</button>
+<div id="cookie-banner" style="position: fixed; bottom: 0; width: 100%; background: #f9f9f9; border-top: 1px solid #ccc; padding: 15px 20px; text-align: center; font-size: 15px; z-index: 9999; box-shadow: 0 -2px 8px rgba(0,0,0,0.1); display: none;">
+  <div style="margin-bottom: 10px;">We use cookies to improve your experience. Do you consent to cookies?</div>
+  <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
+    <button onclick="acceptCookies()" style="padding:10px 20px; background-color:#4CAF50; color:white; border:none; border-radius:5px; font-size:14px; cursor:pointer;">Accept</button>
+    <button onclick="declineCookies()" style="padding:10px 20px; background-color:#e74c3c; color:white; border:none; border-radius:5px; font-size:14px; cursor:pointer;">Decline</button>
+  </div>
 </div>
 
 <script>
 function acceptCookies() {
   localStorage.setItem('cookieConsent', 'accepted');
-  document.getElementById('cookie-banner').style.display = 'none';
+  document.getElementById('cookie-banner').style.opacity = '0';
+  setTimeout(() => { document.getElementById('cookie-banner').style.display = 'none'; }, 500);
   loadAnalytics();
 }
 
 function declineCookies() {
   localStorage.setItem('cookieConsent', 'declined');
-  document.getElementById('cookie-banner').style.display = 'none';
+  document.getElementById('cookie-banner').style.opacity = '0';
+  setTimeout(() => { document.getElementById('cookie-banner').style.display = 'none'; }, 500);
 }
 
 function loadAnalytics() {
   const script = document.createElement('script');
-  script.src = 'https://www.googletagmanager.com/gtag/js?id=G-PDD8WTVWD4'; // ← غير الكود هنا
+  script.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX'; // ← غير الكود هنا
   script.async = true;
   document.head.appendChild(script);
 
@@ -367,14 +371,17 @@ function loadAnalytics() {
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
-    gtag('config', 'G-PDD8WTVWD4'); // ← وغير الكود هنا بعد
+    gtag('config', 'G-XXXXXXXXXX'); // ← وغير الكود هنا بعد
   };
 }
 
 window.addEventListener('load', function() {
   const consent = localStorage.getItem('cookieConsent');
   if (!consent) {
-    document.getElementById('cookie-banner').style.display = 'block';
+    const banner = document.getElementById('cookie-banner');
+    banner.style.display = 'block';
+    banner.style.opacity = '0';
+    setTimeout(() => { banner.style.opacity = '1'; }, 100);
   } else if (consent === 'accepted') {
     loadAnalytics();
   }
