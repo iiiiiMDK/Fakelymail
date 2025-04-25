@@ -197,9 +197,62 @@
       }
     }body.dark-mode a.footer-link {
   color: #ffffff !important;
-  
 }
   </style>
+  <style>
+    #cookie-banner {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      padding: 15px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      z-index: 9999;
+      background-color: var(--banner-bg);
+      color: var(--banner-text);
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+  
+    .cookie-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  
+    #cookie-banner button {
+      padding: 6px 12px;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      background-color: #007BFF;
+      color: white;
+      transition: background-color 0.3s;
+    }
+  
+    #cookie-banner button:hover {
+      background-color: #0056b3;
+    }
+  
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --banner-bg: #1a1a1a;
+        --banner-text: #ffffff;
+      }
+    }
+  
+    @media (prefers-color-scheme: light) {
+      :root {
+        --banner-bg: #f0f0f0;
+        --banner-text: #000000;
+      }
+    }
+  </style>
+<script src="{{ url_for('static', filename='consent.js') }}"></script>
 </head>
 <body>
 
