@@ -99,5 +99,9 @@ def sitemap():
 def ads():
     return app.send_static_file('ads.txt')
 
+@app.route('/googleddb8bfe162a125fe.html')
+def google_verify():
+    return send_from_directory('static', 'googleddb8bfe162a125fe.html')
+    
 if __name__ == '__main__':
  app.run(debug=True)
