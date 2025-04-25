@@ -57,7 +57,7 @@ window.addEventListener('DOMContentLoaded', function () {
     function enableAnalytics() {
       const script = document.createElement('script');
       script.async = true;
-      script.src = "https://www.googletagmanager.com/gtag/js?id=G-PD08MTWD4J"; // غيره لكودك
+      script.src = "https://www.googletagmanager.com/gtag/js?id=G-PDD8WTVWD4"; // غيره لكودك
       document.head.appendChild(script);
   
       window.dataLayer = window.dataLayer || [];
