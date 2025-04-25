@@ -86,10 +86,7 @@ def privacy():
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
-
-if __name__ == '__main__':
-    app.run(debug=True)
-    @app.route('/receive', methods=['POST'])
+@app.route('/receive', methods=['POST'])
 def receive_email():
     from datetime import datetime
     email = request.form.get('recipient')
@@ -111,3 +108,6 @@ def receive_email():
     })
 
     return "OK", 200
+
+if __name__ == '__main__':
+    app.run(debug=True)
