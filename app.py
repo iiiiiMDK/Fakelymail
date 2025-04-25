@@ -55,30 +55,6 @@ def get_messages():
         return jsonify(inboxes[email]['messages'])
     return jsonify([])
 
-@app.route('/receive', methods=['POST'])
-def receive_email():
-    data = request.form
-    email = data.get('recipient')
-    subject = data.get('subject')
-    body = data.get('body-plain') or data.get('stripped-text')
-    sender = data.get('sender')
-
-    if email not in inboxes:
-        inboxes[email] = {
-            'created_at': time.time(),
-            'messages': []
-        }
-
-    inboxes[email]["messages"].append({
-        "from": sender,
-        "subject": subject,
-        "body": body,
-        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M")
-    })
-
-    print(f'New email for {email}\nFrom: {sender}\nSubject: {subject}\nBody:\n{body}')
-    return "OK", 200
-
 @app.route('/privacy')
 def privacy():
     return render_template('privacy.html')
