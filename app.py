@@ -89,3 +89,25 @@ def contact():
 
 if __name__ == '__main__':
     app.run(debug=True)
+    @app.route('/receive', methods=['POST'])
+def receive_email():
+    from datetime import datetime
+    email = request.form.get('recipient')
+    subject = request.form.get('subject')
+    body = request.form.get('stripped-text')
+    sender = request.form.get('sender')
+
+    if email not in inboxes:
+        inboxes[email] = {
+            'created_at': time.time(),
+            'messages': []
+        }
+
+    inboxes[email]["messages"].append({
+        "from": sender,
+        "subject": subject,
+        "body": body,
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M")
+    })
+
+    return "OK", 200
