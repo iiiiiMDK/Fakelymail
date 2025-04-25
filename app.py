@@ -95,5 +95,9 @@ def robots():
 def sitemap():
     return send_from_directory('static', 'sitemap.xml')
 
+@app.route('/ads.txt')
+def ads():
+    return app.send_static_file('ads.txt')
+    
 if __name__ == '__main__':
     app.run(debug=True)
