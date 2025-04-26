@@ -354,74 +354,97 @@ document.getElementById("timer").innerText = `⏳ ${minutes}m ${seconds}s`;
   <a href="/privacy" class="footer-link" style="color: #0984e3; text-decoration: none; margin-right: 15px;">Privacy Policy</a>
   <a href="/contact" class="footer-link" style="color: #0984e3; text-decoration: none;">Contact</a>
 </div>
-<div id="cookie-banner" style="
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #f1f1f1;
-  color: #333;
-  padding: 15px 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  max-width: 90%;
-  text-align: center;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-">
-  <div style="word-wrap: break-word;">
-    We use cookies to improve your experience. Do you consent to cookies?
-  </div>
-  <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
-    <button id="acceptBtn" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">Accept</button>
-    <button id="declineBtn" style="padding: 10px 20px; background-color: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer;">Decline</button>
-  </div>
-</div>
-
 <script>
-  const banner = document.getElementById('cookie-banner');
-  const acceptBtn = document.getElementById('acceptBtn');
-  const declineBtn = document.getElementById('declineBtn');
-
-  // Dark Mode Support
-  function applyTheme() {
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      banner.style.background = '#333';
-      banner.style.color = '#fff';
-      acceptBtn.style.backgroundColor = '#4CAF50';
-      declineBtn.style.backgroundColor = '#f44336';
+  document.addEventListener('DOMContentLoaded', function() {
+    const existingConsent = localStorage.getItem('cookieConsent');
+    if (existingConsent === 'accepted') {
+      return; // إذا وافق لا تطلع البانر
     }
-  }
-
-  // تشغيل الثيم حسب الوضع الحالي
-  applyTheme();
-  window.matchMedia('(prefers-color-scheme: dark)').addListener(applyTheme);
-
-  // Check user consent
-  const consent = localStorage.getItem('cookieConsent');
-  if (consent === 'accepted') {
-    banner.remove(); // حذف البانر إذا موافق
-  } else {
-    setTimeout(() => {
-      banner.style.opacity = 1; // عرض البانر بتدرج (Fade In)
-    }, 500);
-  }
-
-  acceptBtn.onclick = () => {
-    localStorage.setItem('cookieConsent', 'accepted');
-    banner.remove();
-  };
-
-  declineBtn.onclick = () => {
-    localStorage.setItem('cookieConsent', 'declined');
-    banner.style.opacity = 1;
-  };
-</script>
+  
+    const banner = document.createElement('div');
+    banner.id = 'cookie-banner';
+    banner.style.cssText = `
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #f1f1f1;
+      color: #2d3436;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      text-align: center;
+      max-width: 90%;
+      z-index: 9999;
+      font-family: 'Segoe UI', sans-serif;
+      transition: background 0.3s ease, color 0.3s ease;
+    `;
+  
+    const text = document.createElement('p');
+    text.textContent = "We use cookies to improve your experience. Do you consent to cookies?";
+    text.style.marginBottom = '15px';
+    text.style.fontSize = '16px';
+  
+    const buttonContainer = document.createElement('div');
+    buttonContainer.style.display = 'flex';
+    buttonContainer.style.justifyContent = 'center';
+    buttonContainer.style.gap = '10px';
+    buttonContainer.style.flexWrap = 'wrap';
+  
+    const acceptBtn = document.createElement('button');
+    acceptBtn.textContent = 'Accept';
+    acceptBtn.style.cssText = `
+      background-color: #2ecc71;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 15px;
+      cursor: pointer;
+    `;
+  
+    const declineBtn = document.createElement('button');
+    declineBtn.textContent = 'Decline';
+    declineBtn.style.cssText = `
+      background-color: #e74c3c;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 15px;
+      cursor: pointer;
+    `;
+  
+    acceptBtn.onclick = function() {
+      localStorage.setItem('cookieConsent', 'accepted');
+      banner.remove(); // يخفي البانر إذا وافق
+    };
+  
+    declineBtn.onclick = function() {
+      localStorage.setItem('cookieConsent', 'declined');
+      // يبقى البانر ظاهر إذا رفض
+    };
+  
+    buttonContainer.appendChild(acceptBtn);
+    buttonContainer.appendChild(declineBtn);
+    banner.appendChild(text);
+    banner.appendChild(buttonContainer);
+    document.body.appendChild(banner);
+  
+    // دعم الوضع الليلي
+    const observer = new MutationObserver(() => {
+      if (document.body.classList.contains('dark-mode')) {
+        banner.style.backgroundColor = '#2f3640';
+        banner.style.color = '#dfe6e9';
+      } else {
+        banner.style.backgroundColor = '#f1f1f1';
+        banner.style.color = '#2d3436';
+      }
+    });
+  
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+  });
+  </script>
 </div>
 </body>
 </html>
