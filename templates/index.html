@@ -359,7 +359,7 @@ document.getElementById("timer").innerText = `⏳ ${minutes}m ${seconds}s`;
     const consent = localStorage.getItem('cookieConsent');
   
     if (consent === 'accepted') {
-      return; // لا تعرض البانر إذا وافق من قبل
+      return;
     }
   
     const banner = document.createElement('div');
@@ -368,7 +368,7 @@ document.getElementById("timer").innerText = `⏳ ${minutes}m ${seconds}s`;
       position: fixed;
       bottom: 20px;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(-50%) scale(0.9);
       background-color: #f1f1f1;
       color: #2d3436;
       padding: 20px 25px;
@@ -379,13 +379,15 @@ document.getElementById("timer").innerText = `⏳ ${minutes}m ${seconds}s`;
       max-width: 90%;
       z-index: 9999;
       font-family: 'Segoe UI', sans-serif;
-      transition: background 0.3s ease, color 0.3s ease;
+      opacity: 0;
+      transition: all 0.6s ease;
     `;
   
     const text = document.createElement('p');
     text.textContent = "We use cookies to improve your experience. Do you consent to cookies?";
     text.style.marginBottom = '15px';
     text.style.fontSize = '16px';
+    text.style.wordBreak = 'break-word';
     text.style.margin = '0 auto';
   
     const buttonContainer = document.createElement('div');
@@ -423,11 +425,13 @@ document.getElementById("timer").innerText = `⏳ ${minutes}m ${seconds}s`;
   
     acceptBtn.onclick = function() {
       localStorage.setItem('cookieConsent', 'accepted');
-      banner.remove();
+      banner.style.opacity = '0';
+      setTimeout(() => { banner.remove(); }, 600);
     };
   
     declineBtn.onclick = function() {
-      banner.remove(); // يخفي البانر، لكن ما يحفظ "رفض" بالمتصفح
+      banner.style.opacity = '0';
+      setTimeout(() => { banner.remove(); }, 600);
     };
   
     buttonContainer.appendChild(acceptBtn);
@@ -435,6 +439,11 @@ document.getElementById("timer").innerText = `⏳ ${minutes}m ${seconds}s`;
     banner.appendChild(text);
     banner.appendChild(buttonContainer);
     document.body.appendChild(banner);
+  
+    setTimeout(() => {
+      banner.style.opacity = '1';
+      banner.style.transform = 'translateX(-50%) scale(1)';
+    }, 100);
   
     const observer = new MutationObserver(() => {
       if (document.body.classList.contains('dark-mode')) {
