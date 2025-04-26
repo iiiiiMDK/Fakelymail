@@ -356,9 +356,10 @@ document.getElementById("timer").innerText = `⏳ ${minutes}m ${seconds}s`;
 </div>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const existingConsent = localStorage.getItem('cookieConsent');
-    if (existingConsent === 'accepted') {
-      return; // إذا وافق لا تطلع البانر
+    const consent = localStorage.getItem('cookieConsent');
+  
+    if (consent === 'accepted') {
+      return; // لا تعرض البانر إذا وافق من قبل
     }
   
     const banner = document.createElement('div');
@@ -370,10 +371,11 @@ document.getElementById("timer").innerText = `⏳ ${minutes}m ${seconds}s`;
       transform: translateX(-50%);
       background-color: #f1f1f1;
       color: #2d3436;
-      padding: 20px;
+      padding: 20px 25px;
       border-radius: 10px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.2);
       text-align: center;
+      width: auto;
       max-width: 90%;
       z-index: 9999;
       font-family: 'Segoe UI', sans-serif;
@@ -384,12 +386,16 @@ document.getElementById("timer").innerText = `⏳ ${minutes}m ${seconds}s`;
     text.textContent = "We use cookies to improve your experience. Do you consent to cookies?";
     text.style.marginBottom = '15px';
     text.style.fontSize = '16px';
+    text.style.margin = '0 auto';
   
     const buttonContainer = document.createElement('div');
-    buttonContainer.style.display = 'flex';
-    buttonContainer.style.justifyContent = 'center';
-    buttonContainer.style.gap = '10px';
-    buttonContainer.style.flexWrap = 'wrap';
+    buttonContainer.style.cssText = `
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    `;
   
     const acceptBtn = document.createElement('button');
     acceptBtn.textContent = 'Accept';
@@ -417,12 +423,11 @@ document.getElementById("timer").innerText = `⏳ ${minutes}m ${seconds}s`;
   
     acceptBtn.onclick = function() {
       localStorage.setItem('cookieConsent', 'accepted');
-      banner.remove(); // يخفي البانر إذا وافق
+      banner.remove();
     };
   
     declineBtn.onclick = function() {
-      localStorage.setItem('cookieConsent', 'declined');
-      // يبقى البانر ظاهر إذا رفض
+      banner.remove(); // يخفي البانر، لكن ما يحفظ "رفض" بالمتصفح
     };
   
     buttonContainer.appendChild(acceptBtn);
@@ -431,7 +436,6 @@ document.getElementById("timer").innerText = `⏳ ${minutes}m ${seconds}s`;
     banner.appendChild(buttonContainer);
     document.body.appendChild(banner);
   
-    // دعم الوضع الليلي
     const observer = new MutationObserver(() => {
       if (document.body.classList.contains('dark-mode')) {
         banner.style.backgroundColor = '#2f3640';
