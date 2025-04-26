@@ -1,4 +1,4 @@
-// إنشاء بانر الكوكيز
+// إنشاء البانر
 const banner = document.createElement('div');
 banner.id = 'cookie-banner';
 banner.style.cssText = `
@@ -6,7 +6,6 @@ banner.style.cssText = `
   bottom: 0;
   width: 100%;
   background: #f1f1f1;
-  color: #333;
   padding: 15px;
   font-size: 16px;
   display: flex;
@@ -14,13 +13,12 @@ banner.style.cssText = `
   align-items: center;
   gap: 10px;
   z-index: 9999;
-  text-align: center;
-  word-wrap: break-word;
+  word-break: break-word;
 `;
 
 // نص الرسالة
 const message = document.createElement('div');
-message.textContent = 'We use cookies to improve your experience. Do you consent to cookies?';
+message.textContent = "We use cookies to improve your experience. Do you consent to cookies?";
 
 // زر القبول
 const acceptBtn = document.createElement('button');
@@ -28,8 +26,8 @@ acceptBtn.textContent = 'Accept';
 acceptBtn.style.cssText = `
   background-color: #4CAF50;
   color: white;
-  border: none;
   padding: 10px 20px;
+  border: none;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
@@ -41,14 +39,14 @@ declineBtn.textContent = 'Decline';
 declineBtn.style.cssText = `
   background-color: #f44336;
   color: white;
-  border: none;
   padding: 10px 20px;
+  border: none;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
 `;
 
-// وضع الأزرار في صف واحد
+// حاوية الأزرار
 const buttonContainer = document.createElement('div');
 buttonContainer.style.cssText = `
   display: flex;
@@ -56,6 +54,8 @@ buttonContainer.style.cssText = `
   flex-wrap: wrap;
   justify-content: center;
 `;
+
+// إضافة الأزرار للحاوية
 buttonContainer.appendChild(acceptBtn);
 buttonContainer.appendChild(declineBtn);
 
@@ -63,7 +63,36 @@ buttonContainer.appendChild(declineBtn);
 banner.appendChild(message);
 banner.appendChild(buttonContainer);
 
-// وظائف الأزرار
+// تحميل Google Tag Manager إذا وافق المستخدم
+function enableTracking() {
+  const tagScript = document.createElement('script');
+  tagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-PD08MTWD4J"; // غير الكود إلى كودك إذا لازم
+  document.head.appendChild(tagScript);
+
+  tagScript.onload = () => {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PD08MTWD4J');
+  };
+}
+
+// تفعيل الدارك مود
+function applyDarkMode() {
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    banner.style.background = '#333';
+    banner.style.color = '#fff';
+    acceptBtn.style.backgroundColor = '#4CAF50';
+    declineBtn.style.backgroundColor = '#f44336';
+  } else {
+    banner.style.background = '#f1f1f1';
+    banner.style.color = '#000';
+    acceptBtn.style.backgroundColor = '#4CAF50';
+    declineBtn.style.backgroundColor = '#f44336';
+  }
+}
+
+// أحداث الضغط على الأزرار
 acceptBtn.onclick = () => {
   localStorage.setItem('cookieConsent', 'accepted');
   banner.style.display = 'none';
@@ -75,31 +104,7 @@ declineBtn.onclick = () => {
   banner.style.display = 'none';
 };
 
-// تفعيل Google Tag Manager إذا وافق
-function enableTracking() {
-  const gtagScript = document.createElement('script');
-  gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-PDD8WTVWD4"; // ← غير الكود لكودك الصحيح
-  document.head.appendChild(gtagScript);
-
-  gtagScript.onload = () => {
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-PDD8WTVWD4'); // ← غير الكود هنا لكودك
-  };
-}
-
-// دارك مود تلقائي حسب المتصفح
-function applyDarkMode() {
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    banner.style.background = '#333';
-    banner.style.color = '#fff';
-    acceptBtn.style.backgroundColor = '#388E3C';
-    declineBtn.style.backgroundColor = '#D32F2F';
-  }
-}
-
-// تحقق إذا المستخدم قبل أو لا
+// التحقق عند تحميل الصفحة
 const consent = localStorage.getItem('cookieConsent');
 if (!consent) {
   document.body.appendChild(banner);
