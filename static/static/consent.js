@@ -59,14 +59,14 @@ document.addEventListener('DOMContentLoaded', function () {
     function enableAnalytics() {
       const analyticsScript = document.createElement('script');
       analyticsScript.async = true;
-      analyticsScript.src = "https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"; // غير G-XXXXXXXXXX لكودك
+      analyticsScript.src = "https://www.googletagmanager.com/gtag/js?id=G-PDD8WTVWD4"; // غير G-XXXXXXXXXX لكودك
       document.head.appendChild(analyticsScript);
   
       analyticsScript.onload = function() {
         window.dataLayer = window.dataLayer || [];
         function gtag(){ dataLayer.push(arguments); }
         gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX'); // وغير هذا لكودك
+        gtag('config', 'G-PDD8WTVWD4'); // وغير هذا لكودك
       };
     }
   });
