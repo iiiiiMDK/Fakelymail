@@ -1,86 +1,109 @@
-document.addEventListener("DOMContentLoaded", function () {
-  let consent = localStorage.getItem("cookieConsent");
+// إنشاء بانر الكوكيز
+const banner = document.createElement('div');
+banner.id = 'cookie-banner';
+banner.style.cssText = `
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #f1f1f1;
+  color: #333;
+  padding: 15px;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 9999;
+  text-align: center;
+  word-wrap: break-word;
+`;
 
-  if (consent === "accepted") {
-    // المستخدم وافق خلاص ما نظهر البنر
-    return;
+// نص الرسالة
+const message = document.createElement('div');
+message.textContent = 'We use cookies to improve your experience. Do you consent to cookies?';
+
+// زر القبول
+const acceptBtn = document.createElement('button');
+acceptBtn.textContent = 'Accept';
+acceptBtn.style.cssText = `
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+`;
+
+// زر الرفض
+const declineBtn = document.createElement('button');
+declineBtn.textContent = 'Decline';
+declineBtn.style.cssText = `
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+`;
+
+// وضع الأزرار في صف واحد
+const buttonContainer = document.createElement('div');
+buttonContainer.style.cssText = `
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+buttonContainer.appendChild(acceptBtn);
+buttonContainer.appendChild(declineBtn);
+
+// إضافة النص والأزرار للبانر
+banner.appendChild(message);
+banner.appendChild(buttonContainer);
+
+// وظائف الأزرار
+acceptBtn.onclick = () => {
+  localStorage.setItem('cookieConsent', 'accepted');
+  banner.style.display = 'none';
+  enableTracking();
+};
+
+declineBtn.onclick = () => {
+  localStorage.setItem('cookieConsent', 'declined');
+  banner.style.display = 'none';
+};
+
+// تفعيل Google Tag Manager إذا وافق
+function enableTracking() {
+  const gtagScript = document.createElement('script');
+  gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-PDD8WTVWD4"; // ← غير الكود لكودك الصحيح
+  document.head.appendChild(gtagScript);
+
+  gtagScript.onload = () => {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PDD8WTVWD4'); // ← غير الكود هنا لكودك
+  };
+}
+
+// دارك مود تلقائي حسب المتصفح
+function applyDarkMode() {
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    banner.style.background = '#333';
+    banner.style.color = '#fff';
+    acceptBtn.style.backgroundColor = '#388E3C';
+    declineBtn.style.backgroundColor = '#D32F2F';
   }
+}
 
-  const banner = document.createElement("div");
-  banner.id = "cookie-banner";
+// تحقق إذا المستخدم قبل أو لا
+const consent = localStorage.getItem('cookieConsent');
+if (!consent) {
   document.body.appendChild(banner);
-
-  function updateBannerStyle() {
-    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    banner.style.cssText = `
-      max-width: 90%;
-      margin: auto;
-      background: ${isDarkMode ? '#2f3640' : '#ffffff'};
-      color: ${isDarkMode ? '#dfe6e9' : '#2f3640'};
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      text-align: center;
-      font-family: Arial, sans-serif;
-      z-index: 9999;
-      transition: all 0.3s ease;
-    `;
-
-    banner.innerHTML = `
-      <p style="margin-bottom: 10px; font-size: 15px;">
-        We use cookies to improve your experience. Do you consent to cookies?
-      </p>
-      <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
-        <button id="acceptCookies" style="
-          background-color: #4CAF50;
-          color: white;
-          padding: 10px 20px;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          font-size: 14px;
-        ">Accept</button>
-        <button id="declineCookies" style="
-          background-color: #f44336;
-          color: white;
-          padding: 10px 20px;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          font-size: 14px;
-        ">Decline</button>
-      </div>
-    `;
-  }
-
-  updateBannerStyle();
-
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateBannerStyle);
-
-  document.getElementById("acceptCookies").onclick = function () {
-    localStorage.setItem("cookieConsent", "accepted");
-    if (typeof gtag === "function") {
-      gtag('consent', 'update', {
-        ad_storage: 'granted',
-        analytics_storage: 'granted'
-      });
-    }
-    banner.remove();
-  };
-
-  document.getElementById("declineCookies").onclick = function () {
-    localStorage.setItem("cookieConsent", "declined");
-    if (typeof gtag === "function") {
-      gtag('consent', 'update', {
-        ad_storage: 'denied',
-        analytics_storage: 'denied'
-      });
-    }
-    // ما نحذف البنر، نظل نظهره في كل مره
-    location.reload(); 
-  };
-});
+  applyDarkMode();
+} else if (consent === 'accepted') {
+  enableTracking();
+}
