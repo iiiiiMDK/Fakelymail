@@ -2,19 +2,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const consent = localStorage.getItem("cookieConsent");
 
   if (consent === "accepted") {
-    // إذا وافق خلاص ما نظهر البنر
+    // إذا وافق خلاص ما نظهر البنر أبدًا
     return;
   }
-
-  const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
   const banner = document.createElement("div");
   banner.id = "cookie-banner";
   banner.style = `
     max-width: 90%;
     margin: auto;
-    background: ${isDark ? '#333' : '#fff'};
-    color: ${isDark ? '#eee' : '#000'};
+    background: ${window.matchMedia('(prefers-color-scheme: dark)').matches ? '#2f3640' : '#ffffff'};
+    color: ${window.matchMedia('(prefers-color-scheme: dark)').matches ? '#dfe6e9' : '#2f3640'};
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
@@ -25,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
     text-align: center;
     font-family: Arial, sans-serif;
     z-index: 9999;
-    transition: all 0.3s ease;
+    transition: background 0.3s, color 0.3s;
   `;
 
   banner.innerHTML = `
@@ -62,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ad_storage: 'granted',
       analytics_storage: 'granted'
     });
-    banner.remove();
+    banner.remove(); // خلاص نحذفه للأبد.
   };
 
   document.getElementById("declineCookies").onclick = function () {
@@ -71,7 +69,6 @@ document.addEventListener("DOMContentLoaded", function () {
       ad_storage: 'denied',
       analytics_storage: 'denied'
     });
-    // لاحظ أننا هنا ما نحذف البنر عشان يظهر كل مرة
-    location.reload(); // نحدث الصفحة عشان يظهر البنر مجددًا
+    banner.remove(); // نحذفه مؤقت بس لما يدخل يرجع يظهر له
   };
 });
