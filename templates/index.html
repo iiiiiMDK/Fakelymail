@@ -354,6 +354,65 @@ document.getElementById("timer").innerText = `⏳ ${minutes}m ${seconds}s`;
   <a href="/privacy" class="footer-link" style="color: #0984e3; text-decoration: none; margin-right: 15px;">Privacy Policy</a>
   <a href="/contact" class="footer-link" style="color: #0984e3; text-decoration: none;">Contact</a>
 </div>
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" style="position: fixed; bottom: 0; width: 100%; background: #f1f1f1; padding: 15px; font-size: 16px; display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 9999; word-break: break-word;">
+  <div id="cookie-message" style="text-align: center;">We use cookies to improve your experience. Do you consent to cookies?</div>
+  <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+    <button id="accept-cookies" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">Accept</button>
+    <button id="decline-cookies" style="background-color: #f44336; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">Decline</button>
+  </div>
+</div>
+
+<script>
+// زر القبول
+document.getElementById('accept-cookies').onclick = function() {
+  localStorage.setItem('cookieConsent', 'accepted');
+  document.getElementById('cookie-banner').style.display = 'none';
+
+  // تحميل Google Tag Manager
+  const tagScript = document.createElement('script');
+  tagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-PD08MTWD4J"; // غير الكود إذا لازم
+  document.head.appendChild(tagScript);
+
+  tagScript.onload = () => {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PD08MTWD4J');
+  };
+};
+
+// زر الرفض
+document.getElementById('decline-cookies').onclick = function() {
+  localStorage.setItem('cookieConsent', 'declined');
+  document.getElementById('cookie-banner').style.display = 'none';
+};
+
+// تحقق عند فتح الصفحة
+const consent = localStorage.getItem('cookieConsent');
+if (consent === 'accepted') {
+  // إذا موافق مسبقا حمل التراكينق
+  const tagScript = document.createElement('script');
+  tagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-PD08MTWD4J";
+  document.head.appendChild(tagScript);
+
+  tagScript.onload = () => {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PD08MTWD4J');
+  };
+} else if (consent === 'declined') {
+  document.getElementById('cookie-banner').style.display = 'none';
+}
+
+// دارك مود تلقائي
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  document.getElementById('cookie-banner').style.background = '#333';
+  document.getElementById('cookie-banner').style.color = '#fff';
+}
+</script>
+<!-- End Cookie Consent Banner -->
 </script>
 </div>
 </body>
