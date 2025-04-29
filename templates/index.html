@@ -209,6 +209,15 @@
 }
   </style>
   <style>
+    .article-section {
+      color: #222;
+    }
+  
+    body.dark-mode .article-section {
+      color: #eee;
+    }
+  </style>
+  <style>
   
     @media (prefers-color-scheme: light) {
       :root {
@@ -258,8 +267,8 @@
     <p style="text-align: center; margin-bottom: 1rem;">Check your temporary email inbox. Messages appear here instantly!</p>
     <h2>Inbox</h2>
     <div id="messages">Loading...</div>
-
-    <section style="margin-top: 50px; line-height: 1.7; color: #444;">
+    <section style="margin-top: 50px; line-height: 1.7;" class="article-section">
+    
       <h2>Why Choose Fakelymail for Temporary Emails?</h2>
       <p>
         Fakelymail provides a fast, secure, and user-friendly solution for anyone who needs a disposable email address on the go. Whether you're signing up for a service, accessing a downloadable file, or simply avoiding spam, our platform gives you an email that works instantly—no registration required, and no hassle involved.
@@ -287,7 +296,7 @@
         At Fakelymail, we believe in putting privacy back into your hands. Instead of exposing your real inbox, take control with a simple, effective disposable email tool that keeps you protected and clutter-free. Try it now, and experience the safest way to manage your email interactions!
       </p>
     </section> 
-    
+
   <div id="toast" class="toast"></div>
 
   <script>
