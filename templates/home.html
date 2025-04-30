@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -130,16 +129,15 @@
   <h1>Welcome to Fakelymail</h1>
   <p>Your instant, disposable email — no sign up, no hassle.</p>
   <p style="margin-top: 1rem;">Create a temporary email in seconds. Protect your personal inbox and stay anonymous online!</p>
-  <form action="/email" method="GET" style="text-align: center; margin: 40px 0;">
-    <label for="custom" style="font-size: 18px;">Choose your email name (optional):</label><br>
-    <!-- حقل إدخال الاسم -->
+  <div style="text-align: center; margin: 40px 0;">
+    <label for="customInput" style="font-size: 18px;">Choose your email name (optional):</label><br>
     <input type="text" id="customInput" placeholder="e.g. ali"
-    style="padding: 10px; width: 250px; border-radius: 5px; margin: 10px;">
-
-<!-- الزر الظرف الأزرق -->
-<button onclick="goToInbox()" style="background: none; border: none; cursor: pointer;">
-  <img src="/static/envelope-icon.png" alt="Create Inbox" width="80" height="80">
-</button>
+           style="padding: 10px; width: 250px; margin: 10px; border-radius: 5px;"><br>
+    <button onclick="goToInbox()" style="background: none; border: none; cursor: pointer;">
+      <img src="/static/envelope-icon.png" alt="Create Inbox" width="60" height="60">
+    </button>
+  </div>
+  
 
   <script>
     function toggleMode() {
