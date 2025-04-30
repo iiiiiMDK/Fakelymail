@@ -27,11 +27,10 @@ def index():
     custom_name = request.args.get('custom')
     if custom_name:
         email = f"{custom_name.lower()}@fakelymail.com"
-        session['email'] = email
-    elif 'email' not in session:
-        session['email'] = generate_email()
-    
-    email = session['email']
+    else:
+        email = generate_email()
+
+    session['email'] = email
     
     if email not in inboxes:
         inboxes[email] = {
