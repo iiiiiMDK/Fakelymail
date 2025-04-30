@@ -30,17 +30,7 @@ def index():
             'created_at': time.time(),
             'messages': []
         }
-@app.route("/blog1")
-def blog1():
-    return render_template("blog1.html")
-
-@app.route("/blog2")
-def blog2():
-    return render_template("blog2.html")
-
-def some_function():
-do_something()
-threading.Thread(target=auto_delete_email, args=(session['email'],), daemon=True).start()
+        threading.Thread(target=auto_delete_email, args=(session['email'],), daemon=True).start()
 
     email = session['email']
     if email not in inboxes:
@@ -52,6 +42,14 @@ threading.Thread(target=auto_delete_email, args=(session['email'],), daemon=True
 
     remaining = int(inboxes[email]['created_at'] + 1800 - time.time())
     return render_template('index.html', email=email, timer=remaining)
+
+@app.route("/blog1")
+def blog1():
+    return render_template("blog1.html")
+
+@app.route("/blog2")
+def blog2():
+    return render_template("blog2.html")
 
 @app.route('/change')
 def change_email():
