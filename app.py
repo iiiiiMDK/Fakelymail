@@ -38,7 +38,9 @@ def blog1():
 def blog2():
     return render_template("blog2.html")
 
-        threading.Thread(target=auto_delete_email, args=(session['email'],), daemon=True).start()
+def some_function():
+do_something()
+threading.Thread(target=auto_delete_email, args=(session['email'],), daemon=True).start()
 
     email = session['email']
     if email not in inboxes:
