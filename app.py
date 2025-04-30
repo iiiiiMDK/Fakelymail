@@ -30,7 +30,7 @@ def index():
             'created_at': time.time(),
             'messages': []
         }
- @app.route("/blog1")
+@app.route("/blog1")
 def blog1():
     return render_template("blog1.html")
 
