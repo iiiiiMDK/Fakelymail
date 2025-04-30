@@ -20,11 +20,11 @@ def auto_delete_email(email, lifetime=1800):
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('home.html')  # تأكد فعلاً أن الملف اسمه كذا
 
 @app.route('/email')
 def index():
-    email = generate_email()  # ← لاحظ المسافة (4 مسافات أو 1 تاب)
+    email = generate_email()
     session['email'] = email
 
     if email not in inboxes:
