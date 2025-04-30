@@ -132,22 +132,26 @@
   <!-- الفورم الجديد -->
   <div style="margin-top: 20px;">
     <label for="customInput" style="font-size: 18px;">Choose your email name (optional):</label><br>
-    <input type="text" id="customInput" placeholder="e.g. ali"
-           style="padding: 10px; width: 250px; border-radius: 5px; margin: 10px;"><br>
+    <!-- حقل الاسم -->
+<input type="text" id="customInput" placeholder="e.g. ali"
+style="padding: 10px; width: 250px; border-radius: 5px; margin: 10px;"><br>
 
-    <!-- الزر الأزرق الظرف -->
-    <button title="Go to inbox" onclick="window.location.href='/email'">📨</button>
+<!-- الزر الظرف مربوط بالسكربت -->
+<button title="Go to inbox" onclick="goToInbox()" style="background: none; border: none; cursor: pointer;">
+<img src="/static/envelope-icon.png" alt="Create Inbox" width="60" height="60">
+</button>
 
-  <script>
-    function goToInbox() {
-      const input = document.getElementById("customInput");
-      const name = input.value.trim();
-      if (name) {
-        window.location.href = "/email?custom=" + encodeURIComponent(name);
-      } else {
-        window.location.href = "/email";
-      }
-    }
+<!-- السكربت الذكي -->
+<script>
+function goToInbox() {
+const name = document.getElementById("customInput").value.trim();
+if (name) {
+window.location.href = "/email?custom=" + encodeURIComponent(name);
+} else {
+window.location.href = "/email";
+}
+}
+</script>
 
     function toggleMode() {
       const body = document.body;
