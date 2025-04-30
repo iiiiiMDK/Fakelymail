@@ -129,15 +129,18 @@
   <h1>Welcome to Fakelymail</h1>
   <p>Your instant, disposable email — no sign up, no hassle.</p>
   <p style="margin-top: 1rem;">Create a temporary email in seconds. Protect your personal inbox and stay anonymous online!</p>
-  <div style="text-align: center; margin: 40px 0;">
-    <label for="customInput" style="font-size: 18px;">Choose your email name (optional):</label><br>
-    <input type="text" id="customInput" placeholder="e.g. ali"
+  <form action="/email" method="GET" style="text-align: center; margin: 40px 0;">
+    <label for="custom" style="font-size: 18px;">Choose your email name (optional):</label><br>
+    <input type="text" name="custom" placeholder="e.g. ali"
            style="padding: 10px; width: 250px; margin: 10px; border-radius: 5px;"><br>
-    <button onclick="goToInbox()" style="background: none; border: none; cursor: pointer;">
+  
+    <!-- هذا هو الزر الأزرق (الظرف) الي تبيه -->
+    <button type="submit" style="background: none; border: none; cursor: pointer;">
       <img src="/static/envelope-icon.png" alt="Create Inbox" width="60" height="60">
     </button>
-  </div>
-  
+  </form>
+  <!-- زر الدخول كأيقونة -->
+  <button title="Go to inbox" onclick="window.location.href='/email'">📨</button>
 
   <script>
     function toggleMode() {
@@ -207,16 +210,5 @@ With <strong>fakelymail</strong>, getting a disposable email is fast, easy, and 
     <a href="/contact" style="color: #888; margin: 0 10px; text-decoration: none;">Contact</a>
   </div>
 </footer>
-<script>
-  function goToInbox() {
-    const input = document.getElementById("customInput");
-    const name = input.value.trim();
-    if (name) {
-      window.location.href = "/email?custom=" + encodeURIComponent(name);
-    } else {
-      window.location.href = "/email";
-    }
-  }
-</script>
 </body>
 </html>
