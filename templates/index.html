@@ -377,7 +377,7 @@ document.getElementById("timer").innerText = `⏳ ${minutes}m ${seconds}s`;
             div.innerHTML = `
               <div class="msg-header">From: ${msg.from}</div>
               <div><strong>Subject:</strong> ${msg.subject}</div>
-              <div>${msg.body}</div>
+             <div class="email-preview-box">${msg.body}</div>
               <small>${msg.timestamp}</small>
             `;
             box.appendChild(div);

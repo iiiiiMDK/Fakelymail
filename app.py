@@ -24,15 +24,15 @@ def home():
 
 @app.route('/email')
 def index():
-    if 'email' not in session:
+    custom_name = request.args.get('custom')
+    if custom_name:
+        email = f"{custom_name.lower()}@fakelymail.com"
+        session['email'] = email
+    elif 'email' not in session:
         session['email'] = generate_email()
-        inboxes[session['email']] = {
-            'created_at': time.time(),
-            'messages': []
-        }
-        threading.Thread(target=auto_delete_email, args=(session['email'],), daemon=True).start()
-
+    
     email = session['email']
+    
     if email not in inboxes:
         inboxes[email] = {
             'created_at': time.time(),
