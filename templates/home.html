@@ -6,18 +6,18 @@
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Get your free disposable email instantly with Fakelymail. No signup required. Private, fast, and easy.">
-<meta name="keywords" content="temporary email, fake email, disposable email, no signup, fakelymail">
-<meta name="author" content="fakelymail.com">
-<meta name="robots" content="index, follow">
-<meta property="og:title" content="Fakelymail - Free Temporary Email">
-<meta property="og:description" content="Receive emails instantly with your own temporary inbox. No signup. No hassle.">
-<meta property="og:image" content="https://fakelymail.com/static/logo.png">
-<meta property="og:url" content="https://fakelymail.com">
-<meta name="twitter:card" content="summary_large_image">
+  <meta name="keywords" content="temporary email, fake email, disposable email, no signup, fakelymail">
+  <meta name="author" content="fakelymail.com">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Fakelymail - Free Temporary Email">
+  <meta property="og:description" content="Receive emails instantly with your own temporary inbox. No signup. No hassle.">
+  <meta property="og:image" content="https://fakelymail.com/static/logo.png">
+  <meta property="og:url" content="https://fakelymail.com">
+  <meta name="twitter:card" content="summary_large_image">
   <style>
     body.dark-mode a.footer-link {
-  color: #ffffff !important;
-}
+      color: #ffffff !important;
+    }
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #f5f6fa;
@@ -78,11 +78,11 @@
     }
 
     .logo {
-  height: 70px;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
 
     .logo:hover {
       transform: scale(1.1);
@@ -125,24 +125,33 @@
   <button id="toggle-mode" onclick="toggleMode()">🌙</button>
 
   <!-- المحتوى -->
-  
   <h1>Welcome to Fakelymail</h1>
   <p>Your instant, disposable email — no sign up, no hassle.</p>
   <p style="margin-top: 1rem;">Create a temporary email in seconds. Protect your personal inbox and stay anonymous online!</p>
-  <form action="/email" method="GET" style="text-align: center; margin: 40px 0;">
-    <label for="custom" style="font-size: 18px;">Choose your email name (optional):</label><br>
-    <input type="text" name="custom" placeholder="e.g. ali"
-           style="padding: 10px; width: 250px; margin: 10px; border-radius: 5px;"><br>
-  
-    <!-- هذا هو الزر الأزرق (الظرف) الي تبيه -->
-    <button type="submit" style="background: none; border: none; cursor: pointer;">
+
+  <!-- الفورم الجديد -->
+  <div style="margin-top: 20px;">
+    <label for="customInput" style="font-size: 18px;">Choose your email name (optional):</label><br>
+    <input type="text" id="customInput" placeholder="e.g. ali"
+           style="padding: 10px; width: 250px; border-radius: 5px; margin: 10px;"><br>
+
+    <!-- الزر الأزرق الظرف -->
+    <button onclick="goToInbox()" style="background: none; border: none; cursor: pointer;">
       <img src="/static/envelope-icon.png" alt="Create Inbox" width="60" height="60">
     </button>
-  </form>
-  <!-- زر الدخول كأيقونة -->
-  <button title="Go to inbox" onclick="window.location.href='/email'">📨</button>
+  </div>
 
   <script>
+    function goToInbox() {
+      const input = document.getElementById("customInput");
+      const name = input.value.trim();
+      if (name) {
+        window.location.href = "/email?custom=" + encodeURIComponent(name);
+      } else {
+        window.location.href = "/email";
+      }
+    }
+
     function toggleMode() {
       const body = document.body;
       body.classList.toggle('dark-mode');
@@ -159,56 +168,45 @@
       }
     }
   </script>
-<div style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: gray;">
-  
-<h2 style="text-align: center;">Why Use a Temporary Email?</h2>
 
-<p style="text-align: center; max-width: 700px; margin: 1rem auto;">
-Temporary emails are a fast and easy way to protect your real inbox from spam, ads, and unwanted signups. Instead of giving out your personal email, you can use a disposable address that keeps your privacy safe.
-</p>
+  <!-- باقي الصفحة -->
+  <h2 style="text-align: center;">Why Use a Temporary Email?</h2>
+  <p style="text-align: center; max-width: 700px; margin: 1rem auto;">
+    Temporary emails are a fast and easy way to protect your real inbox from spam, ads, and unwanted signups. Instead of giving out your personal email, you can use a disposable address that keeps your privacy safe.
+  </p>
+  <p style="text-align: center; max-width: 700px; margin: 1rem auto;">
+    Whether you're signing up for a free trial, downloading a file, or simply avoiding spam, temporary emails help you stay anonymous online without the hassle of creating a new account.
+  </p>
+  <p style="text-align: center; max-width: 700px; margin: 1rem auto;">
+    At <strong>fakelymail</strong>, we make it easy: instant email generation, no registration, and full privacy — all for free. Stay safe and in control with your disposable inbox!
+  </p>
 
-<p style="text-align: center; max-width: 700px; margin: 1rem auto;">
-Whether you're signing up for a free trial, downloading a file, or simply avoiding spam, temporary emails help you stay anonymous online without the hassle of creating a new account.
-</p>
+  <hr style="margin: 2rem 0;">
+  <h2 style="text-align: center;">Top Reasons People Use Disposable Emails</h2>
+  <p style="text-align: center; max-width: 700px; margin: 1rem auto;">
+    Using disposable emails has become a smart move for anyone who values their privacy online. Here are the top reasons people choose temporary email addresses:
+  </p>
+  <ul style="text-align: left; max-width: 700px; margin: 1rem auto; line-height: 1.7;">
+    <li><strong>Protect Privacy:</strong> Keep your real inbox safe from spam and unwanted tracking.</li>
+    <li><strong>Quick Signups:</strong> Instantly register on websites without revealing personal details.</li>
+    <li><strong>Stay Anonymous:</strong> Browse and interact online without linking your identity.</li>
+    <li><strong>Prevent Spam:</strong> Avoid promotional emails after downloading apps, files, or coupons.</li>
+    <li><strong>Secure Free Trials:</strong> Use temporary emails to sign up for services without getting locked into subscriptions.</li>
+  </ul>
+  <p style="text-align: center; max-width: 700px; margin: 1rem auto;">
+    With <strong>fakelymail</strong>, getting a disposable email is fast, easy, and completely private — giving you full control over your online experience!
+  </p>
 
-<p style="text-align: center; max-width: 700px; margin: 1rem auto;">
-At <strong>fakelymail</strong>, we make it easy: instant email generation, no registration, and full privacy — all for free. Stay safe and in control with your disposable inbox!
-</p>
-
-<hr style="margin: 2rem 0;">
-
-<hr style="margin: 2rem 0;">
-
-<h2 style="text-align: center;">Top Reasons People Use Disposable Emails</h2>
-
-<p style="text-align: center; max-width: 700px; margin: 1rem auto;">
-Using disposable emails has become a smart move for anyone who values their privacy online. Here are the top reasons people choose temporary email addresses:
-</p>
-
-<ul style="text-align: left; max-width: 700px; margin: 1rem auto; line-height: 1.7;">
-  <li><strong>Protect Privacy:</strong> Keep your real inbox safe from spam and unwanted tracking.</li>
-  <li><strong>Quick Signups:</strong> Instantly register on websites without revealing personal details.</li>
-  <li><strong>Stay Anonymous:</strong> Browse and interact online without linking your identity.</li>
-  <li><strong>Prevent Spam:</strong> Avoid promotional emails after downloading apps, files, or coupons.</li>
-  <li><strong>Secure Free Trials:</strong> Use temporary emails to sign up for services without getting locked into subscriptions.</li>
-</ul>
-
-<p style="text-align: center; max-width: 700px; margin: 1rem auto;">
-With <strong>fakelymail</strong>, getting a disposable email is fast, easy, and completely private — giving you full control over your online experience!
-</p>
-
-<hr style="margin: 2rem 0;">
-
-<footer style="text-align: center; padding: 40px 20px 20px;">
-  <div style="margin-bottom: 15px;">
-    <a href="/blog1" style="color: #00bfff; font-weight: 600; margin: 0 10px; text-decoration: none;">Privacy Tips</a>
-    <a href="/blog2" style="color: #00bfff; font-weight: 600; margin: 0 10px; text-decoration: none;">Email Tricks</a>
-  </div>
-  <hr style="max-width: 200px; margin: 10px auto;">
-  <div>
-    <a href="/privacy" style="color: #888; margin: 0 10px; text-decoration: none;">Privacy Policy</a>
-    <a href="/contact" style="color: #888; margin: 0 10px; text-decoration: none;">Contact</a>
-  </div>
-</footer>
+  <footer style="text-align: center; padding: 40px 20px 20px;">
+    <div style="margin-bottom: 15px;">
+      <a href="/blog1" style="color: #00bfff; font-weight: 600; margin: 0 10px; text-decoration: none;">Privacy Tips</a>
+      <a href="/blog2" style="color: #00bfff; font-weight: 600; margin: 0 10px; text-decoration: none;">Email Tricks</a>
+    </div>
+    <hr style="max-width: 200px; margin: 10px auto;">
+    <div>
+      <a href="/privacy" style="color: #888; margin: 0 10px; text-decoration: none;">Privacy Policy</a>
+      <a href="/contact" style="color: #888; margin: 0 10px; text-decoration: none;">Contact</a>
+    </div>
+  </footer>
 </body>
 </html>
