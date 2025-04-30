@@ -24,10 +24,9 @@ def home():
 
 @app.route('/email')
 def index():
-email = generate_email()
-
+    email = generate_email()  # ← لاحظ المسافة (4 مسافات أو 1 تاب)
     session['email'] = email
-    
+
     if email not in inboxes:
         inboxes[email] = {
             'created_at': time.time(),
