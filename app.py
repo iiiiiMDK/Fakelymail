@@ -24,11 +24,7 @@ def home():
 
 @app.route('/email')
 def index():
-    custom_name = request.args.get('custom')
-    if custom_name and custom_name.strip():
-        email = f"{custom_name.lower()}@fakelymail.com"
-    else:
-        email = generate_email()
+email = generate_email()
 
     session['email'] = email
     
