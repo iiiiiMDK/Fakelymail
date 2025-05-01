@@ -76,3 +76,7 @@ body {
     border-color: #ccc;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
   }
+  .ad-container {
+    margin: 30px 0;
+    text-align: center;
+  }
