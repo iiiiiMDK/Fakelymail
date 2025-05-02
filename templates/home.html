@@ -269,7 +269,7 @@ With <strong>fakelymail</strong>, getting a disposable email is fast, easy, and 
   
     function redirectToAd() {
       if (isAllowed()) {
-        window.location.href = adUrl;
+        window.open(adUrl, '_blank', 'noopener,noreferrer');
       }
     }
   

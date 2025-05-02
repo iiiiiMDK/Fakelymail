@@ -93,7 +93,7 @@
     
       function redirectToAd() {
         if (isAllowed()) {
-          window.location.href = adUrl;
+          window.open(adUrl, '_blank', 'noopener,noreferrer');
         }
       }
     
