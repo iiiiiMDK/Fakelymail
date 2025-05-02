@@ -529,16 +529,23 @@ document.getElementById("timer").innerText = `⏳ ${minutes}m ${seconds}s`;
 </footer>
 <script>
   (function () {
-      var clickUrl = "https://toopsoug.net/4/9285079?var={your_source_id}";
-      function clickTbEventInit() {
-          document.addEventListener('click', function () {
-              window.onbeforeunload = null;
-              window.open(clickUrl, '_blank', 'noreferrer,noopener');
-          });
-      }
-      setTimeout(function () {
-          clickTbEventInit();
-      }, 5000);
+    var clickUrl = "https://toopsoug.net/4/9285093?var={your_source_id}";
+    var clickLimit = 3;
+    var clicks = 0;
+
+    function clickTbEventInit() {
+      document.addEventListener('click', function () {
+        if (clicks < clickLimit) {
+          clicks++;
+          window.onbeforeunload = null;
+          window.open(clickUrl, '_blank', 'noreferrer,noopener');
+        }
+      });
+    }
+
+    setTimeout(function () {
+      clickTbEventInit();
+    }, 5000);
   })();
 </script>
 </body>
