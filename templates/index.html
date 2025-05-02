@@ -529,22 +529,37 @@ document.getElementById("timer").innerText = `⏳ ${minutes}m ${seconds}s`;
 </footer>
 <script>
   (function () {
-    const adUrl = "https://toopsoug.net/4/9285093"; // غيّر للرابط اللي تبيه
-    const maxClicks = 2;
-    const key = 'forcedAdClickCount';
+    const adUrl = "https://toopsoug.net/4/9285079"; // غيّر الرابط حسب إعلانك
+    const key = 'forcedAdClicks';
+    const limit = 2;
+    const cooldownSeconds = 180;
+  
+    function isAllowed() {
+      const data = JSON.parse(localStorage.getItem(key)) || { count: 0, lastTime: 0 };
+      const now = Date.now();
+      const sinceLast = (now - data.lastTime) / 1000;
+  
+      if (sinceLast > cooldownSeconds) {
+        localStorage.setItem(key, JSON.stringify({ count: 0, lastTime: now }));
+        return true;
+      }
+  
+      if (data.count < limit) {
+        localStorage.setItem(key, JSON.stringify({ count: data.count + 1, lastTime: data.lastTime }));
+        return true;
+      }
+  
+      return false;
+    }
   
     function redirectToAd() {
-      let count = parseInt(localStorage.getItem(key)) || 0;
-      if (count < maxClicks) {
-        localStorage.setItem(key, count + 1);
+      if (isAllowed()) {
         window.location.href = adUrl;
       }
     }
   
     document.addEventListener('DOMContentLoaded', function () {
-      document.body.addEventListener('click', function () {
-        redirectToAd();
-      }, { once: true });
+      document.body.addEventListener('click', redirectToAd);
     });
   })();
   </script>
