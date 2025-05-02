@@ -529,44 +529,24 @@ document.getElementById("timer").innerText = `⏳ ${minutes}m ${seconds}s`;
 </footer>
 <script>
   (function () {
-    const clickLimit = 2;
-    const adUrl = "https://toopsoug.net/4/9285093?var=your_source_id";
-    const storageKey = "adClickData";
-    const intervalMinutes = 5;  // ← هنا التوقيت بالدقائق
-
-    function canShowAd() {
-      const data = JSON.parse(localStorage.getItem(storageKey)) || { count: 0, lastReset: Date.now() };
-      const now = Date.now();
-
-      // إذا مضى أكثر من 5 دقائق، نعيد العداد
-      if (now - data.lastReset > intervalMinutes * 60 * 1000) {
-        data.count = 0;
-        data.lastReset = now;
-        localStorage.setItem(storageKey, JSON.stringify(data));
-        return true;
-      }
-
-      if (data.count < clickLimit) {
-        data.count += 1;
-        localStorage.setItem(storageKey, JSON.stringify(data));
-        return true;
-      }
-
-      return false;
-    }
-
-    function handleClick(e) {
-      if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
-        if (canShowAd()) {
-          window.open(adUrl, '_blank', 'noopener,noreferrer');
-        }
+    const adUrl = "https://toopsoug.net/4/9285093"; // غيّر للرابط اللي تبيه
+    const maxClicks = 2;
+    const key = 'forcedAdClickCount';
+  
+    function redirectToAd() {
+      let count = parseInt(localStorage.getItem(key)) || 0;
+      if (count < maxClicks) {
+        localStorage.setItem(key, count + 1);
+        window.location.href = adUrl;
       }
     }
-
+  
     document.addEventListener('DOMContentLoaded', function () {
-      document.body.addEventListener('click', handleClick);
+      document.body.addEventListener('click', function () {
+        redirectToAd();
+      }, { once: true });
     });
   })();
-</script>
+  </script>
 </body>
 </html>
