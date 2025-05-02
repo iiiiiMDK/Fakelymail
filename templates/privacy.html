@@ -147,11 +147,11 @@
 
 <script>
   (function () {
-    const clickLimit = 2;
     const adUrl = "https://toopsoug.net/4/9285093?var=your_source_id"; // غيّر الرابط إذا احتجت
-    const key = 'clickCount';
+    const clickLimit = 2;
+    const key = 'btnClickCount';
 
-    function handleAdClick(event) {
+    function showAdIfAllowed() {
       let count = parseInt(localStorage.getItem(key)) || 0;
       if (count < clickLimit) {
         window.open(adUrl, '_blank', 'noopener,noreferrer');
@@ -160,10 +160,13 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-      const btn = document.querySelector("#go-to-inbox"); // تأكد أن الزر عنده هذا الـ id
-      if (btn) {
-        btn.addEventListener('click', handleAdClick);
-      }
+      // استهدف كل الأزرار اللي تبيها
+      const buttons = document.querySelectorAll('button, a.back-button');
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          showAdIfAllowed();
+        });
+      });
     });
   })();
 </script>

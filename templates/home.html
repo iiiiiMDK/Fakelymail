@@ -244,11 +244,11 @@ With <strong>fakelymail</strong>, getting a disposable email is fast, easy, and 
 </footer>
 <script>
   (function () {
+    const adUrl = "https://toopsoug.net/4/9285093?var=your_source_id"; // غيّر الرابط إذا احتجت
     const clickLimit = 2;
-    const adUrl = "https://toopsoug.net/4/9285093?var=your_source_id"; // غيّر الرابط لو احتجت
-    const key = 'clickCount';
+    const key = 'btnClickCount';
 
-    function handleClick() {
+    function showAdIfAllowed() {
       let count = parseInt(localStorage.getItem(key)) || 0;
       if (count < clickLimit) {
         window.open(adUrl, '_blank', 'noopener,noreferrer');
@@ -257,7 +257,13 @@ With <strong>fakelymail</strong>, getting a disposable email is fast, easy, and 
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-      document.body.addEventListener('click', handleClick);
+      // استهدف كل الأزرار اللي تبيها
+      const buttons = document.querySelectorAll('button, a.back-button');
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          showAdIfAllowed();
+        });
+      });
     });
   })();
 </script>
