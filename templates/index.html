@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- 
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9118501667316922"
+  crossorigin="anonymous"></script>
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PDD8WTVWD4"></script>
   <script>
@@ -250,6 +251,18 @@
 
   <div class="container">
     <h1>Fakelymail</h1>
+    <!-- AdSense Ad 1 -->
+<div class="ad-container" style="margin: 30px auto;">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-9118501667316922"
+       data-ad-slot="1111111111"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
 
     <div class="buttons-group">
       <button title="📋 Copy All" onclick="copyAllMessages()">📋</button>
@@ -526,42 +539,19 @@ document.getElementById("timer").innerText = `⏳ ${minutes}m ${seconds}s`;
     <a href="/privacy" style="color: #888; margin: 0 10px; text-decoration: none;">Privacy Policy</a>
     <a href="/contact" style="color: #888; margin: 0 10px; text-decoration: none;">Contact</a>
   </div>
-</footer>
-<script>
-  (function () {
-    const adUrl = "https://toopsoug.net/4/9285079"; // غيّر الرابط حسب إعلانك
-    const key = 'forcedAdClicks';
-    const limit = 2;
-    const cooldownSeconds = 180;
-  
-    function isAllowed() {
-      const data = JSON.parse(localStorage.getItem(key)) || { count: 0, lastTime: 0 };
-      const now = Date.now();
-      const sinceLast = (now - data.lastTime) / 1000;
-  
-      if (sinceLast > cooldownSeconds) {
-        localStorage.setItem(key, JSON.stringify({ count: 0, lastTime: now }));
-        return true;
-      }
-  
-      if (data.count < limit) {
-        localStorage.setItem(key, JSON.stringify({ count: data.count + 1, lastTime: data.lastTime }));
-        return true;
-      }
-  
-      return false;
-    }
-  
-    function redirectToAd() {
-      if (isAllowed()) {
-        window.open(adUrl, '_blank', 'noopener,noreferrer');
-      }
-    }
-  
-    document.addEventListener('DOMContentLoaded', function () {
-      document.body.addEventListener('click', redirectToAd);
-    });
-  })();
+<!-- AdSense Ad 1 -->
+<div class="ad-container" style="margin: 30px auto;">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-9118501667316922"
+       data-ad-slot="1111111111"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
+</div>
+</footer>
+
 </body>
 </html>

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- 
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-xxxxxxxxxxxx"
+  crossorigin="anonymous"></script>
 
   <meta charset="UTF-8">
   <title>Contact - Fakelymail</title>
@@ -105,7 +106,18 @@
     <h1>Contact Us</h1>
     <p>Have questions, feedback, or need support?</p>
     <p>Reach out to us anytime at:<br><strong>fakelymail@gmail.com</strong></p>
-
+<!-- Google AdSense Ad -->
+<div class="ad-container" style="margin: 30px auto; text-align: center;">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-9118501667316922"
+       data-ad-slot="5555555555"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
     <a class="back-button" href="/">← Back to Home</a>
   </div>
 
@@ -126,41 +138,6 @@
       }
     }
   </script>
-<script>
-  (function () {
-    const adUrl = "https://toopsoug.net/4/9285093"; // غيّر الرابط حسب إعلانك
-    const key = 'forcedAdClicks';
-    const limit = 2;
-    const cooldownSeconds = 180;
-  
-    function isAllowed() {
-      const data = JSON.parse(localStorage.getItem(key)) || { count: 0, lastTime: 0 };
-      const now = Date.now();
-      const sinceLast = (now - data.lastTime) / 1000;
-  
-      if (sinceLast > cooldownSeconds) {
-        localStorage.setItem(key, JSON.stringify({ count: 0, lastTime: now }));
-        return true;
-      }
-  
-      if (data.count < limit) {
-        localStorage.setItem(key, JSON.stringify({ count: data.count + 1, lastTime: data.lastTime }));
-        return true;
-      }
-  
-      return false;
-    }
-  
-    function redirectToAd() {
-      if (isAllowed()) {
-        window.open(adUrl, '_blank', 'noopener,noreferrer');
-      }
-    }
-  
-    document.addEventListener('DOMContentLoaded', function () {
-      document.body.addEventListener('click', redirectToAd);
-    });
-  })();
-  </script>
+
 </body>
 </html>

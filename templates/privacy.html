@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9118501667316922"
+     crossorigin="anonymous"></script>
   <meta charset="UTF-8">
   <title>Privacy Policy - Fakelymail</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -92,6 +93,18 @@
 
     <h2>What We Collect</h2>
     <p>We do not collect any personal information. All email addresses generated are temporary and deleted automatically after a short time.</p>
+    <!-- Google Ad -->
+<div class="ad-container" style="margin: 30px auto; text-align: center;">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-9118501667316922"
+       data-ad-slot="4444444444"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
 
     <h2>Message Data</h2>
     <p>Email messages received are stored temporarily to be viewed by the user, then automatically deleted. We do not share or analyze this data.</p>
@@ -125,61 +138,8 @@
       }
     }
   </script>
-<script>
-  (function () {
-    const clickLimit = 2;
-    const adUrl = "https://toopsoug.net/4/9285093?var=your_source_id"; // غيّر الرابط لو احتجت
-    const key = 'clickCount';
 
-    function handleClick() {
-      let count = parseInt(localStorage.getItem(key)) || 0;
-      if (count < clickLimit) {
-        window.open(adUrl, '_blank', 'noopener,noreferrer');
-        localStorage.setItem(key, count + 1);
-      }
-    }
 
-    document.addEventListener('DOMContentLoaded', function () {
-      document.body.addEventListener('click', handleClick);
-    });
-  })();
-</script>
 
-<script>
-  (function () {
-    const adUrl = "https://toopsoug.net/4/9285077"; // غيّر الرابط حسب إعلانك
-    const key = 'forcedAdClicks';
-    const limit = 2;
-    const cooldownSeconds = 180;
-  
-    function isAllowed() {
-      const data = JSON.parse(localStorage.getItem(key)) || { count: 0, lastTime: 0 };
-      const now = Date.now();
-      const sinceLast = (now - data.lastTime) / 1000;
-  
-      if (sinceLast > cooldownSeconds) {
-        localStorage.setItem(key, JSON.stringify({ count: 0, lastTime: now }));
-        return true;
-      }
-  
-      if (data.count < limit) {
-        localStorage.setItem(key, JSON.stringify({ count: data.count + 1, lastTime: data.lastTime }));
-        return true;
-      }
-  
-      return false;
-    }
-  
-    function redirectToAd() {
-      if (isAllowed()) {
-        window.open(adUrl, '_blank', 'noopener,noreferrer');
-      }
-    }
-  
-    document.addEventListener('DOMContentLoaded', function () {
-      document.body.addEventListener('click', redirectToAd);
-    });
-  })();
-  </script>
 </body>
 </html>
