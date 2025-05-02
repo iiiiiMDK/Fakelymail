@@ -128,26 +128,42 @@
   </script>
 <script>
   (function () {
-    const adUrl = "https://toopsoug.net/4/9285093?var=your_source_id"; // غيّر الرابط إذا احتجت
     const clickLimit = 2;
-    const key = 'btnClickCount';
+    const adUrl = "https://toopsoug.net/4/9285093?var=your_source_id";
+    const storageKey = "adClickData";
+    const intervalMinutes = 5;  // ← هنا التوقيت بالدقائق
 
-    function showAdIfAllowed() {
-      let count = parseInt(localStorage.getItem(key)) || 0;
-      if (count < clickLimit) {
-        window.open(adUrl, '_blank', 'noopener,noreferrer');
-        localStorage.setItem(key, count + 1);
+    function canShowAd() {
+      const data = JSON.parse(localStorage.getItem(storageKey)) || { count: 0, lastReset: Date.now() };
+      const now = Date.now();
+
+      // إذا مضى أكثر من 5 دقائق، نعيد العداد
+      if (now - data.lastReset > intervalMinutes * 60 * 1000) {
+        data.count = 0;
+        data.lastReset = now;
+        localStorage.setItem(storageKey, JSON.stringify(data));
+        return true;
+      }
+
+      if (data.count < clickLimit) {
+        data.count += 1;
+        localStorage.setItem(storageKey, JSON.stringify(data));
+        return true;
+      }
+
+      return false;
+    }
+
+    function handleClick(e) {
+      if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+        if (canShowAd()) {
+          window.open(adUrl, '_blank', 'noopener,noreferrer');
+        }
       }
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-      // استهدف كل الأزرار اللي تبيها
-      const buttons = document.querySelectorAll('button, a.back-button');
-      buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          showAdIfAllowed();
-        });
-      });
+      document.body.addEventListener('click', handleClick);
     });
   })();
 </script>
