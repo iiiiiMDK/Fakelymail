@@ -47,8 +47,8 @@ def blog2():
 
 @app.route('/change')
 def change_email():
-    session.pop('email', None)
-    return redirect('/email')
+    session['email'] = generate_random_email()
+    return '', 204
 
 @app.route('/messages')
 def get_messages():
