@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, session, jsonify, redirect
+from flask import Flask, render_template, request, session, jsonify, redirect, send_from_directory
 import random, string, time, threading
 from datetime import datetime
+import os
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'
@@ -13,15 +14,17 @@ def generate_email():
     domain = 'fakelymail.com'
     return f'{username}@{domain}'
 
-# حذف تلقائي بعد وقت محدد
+# حذف تلقائي بعد وقت
 def auto_delete_email(email, lifetime=1800):
     time.sleep(lifetime)
     inboxes.pop(email, None)
 
+# الصفحة الرئيسية
 @app.route('/')
 def home():
-    return render_template('home.html')  # تأكد فعلاً أن الملف اسمه كذا
+    return render_template('home.html')
 
+# صفحة البريد المؤقت
 @app.route('/email')
 def index():
     email = generate_email()
@@ -37,19 +40,54 @@ def index():
     remaining = int(inboxes[email]['created_at'] + 1800 - time.time())
     return render_template('index.html', email=email, timer=remaining)
 
-@app.route("/blog1")
+# صفحات البلوق
+@app.route('/blog1')
 def blog1():
-    return render_template("blog1.html")
+    return render_template('blog1.html')
 
-@app.route("/blog2")
+@app.route('/blog2')
 def blog2():
-    return render_template("blog2.html")
+    return render_template('blog2.html')
 
+@app.route('/blog3')
+def blog3():
+    return render_template('blog3.html')
+
+@app.route('/blog4')
+def blog4():
+    return render_template('blog4.html')
+
+@app.route('/blog5')
+def blog5():
+    return render_template('blog5.html')
+
+@app.route('/blog6')
+def blog6():
+    return render_template('blog6.html')
+
+@app.route('/blog7')
+def blog7():
+    return render_template('blog7.html')
+
+@app.route('/blog8')
+def blog8():
+    return render_template('blog8.html')
+
+@app.route('/blog9')
+def blog9():
+    return render_template('blog9.html')
+
+@app.route('/blog10')
+def blog10():
+    return render_template('blog10.html')
+
+# تغيير الإيميل
 @app.route('/change')
 def change_email():
-    session['email'] = generate_random_email()
+    session['email'] = generate_email()
     return '', 204
 
+# جلب الرسائل
 @app.route('/messages')
 def get_messages():
     email = session.get('email')
@@ -57,6 +95,7 @@ def get_messages():
         return jsonify(inboxes[email]['messages'])
     return jsonify([])
 
+# سياسة الخصوصية والتواصل
 @app.route('/privacy')
 def privacy():
     return render_template('privacy.html')
@@ -64,9 +103,10 @@ def privacy():
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
+
+# استقبال الرسائل من Mailgun
 @app.route('/receive', methods=['POST'])
 def receive_email():
-    from datetime import datetime
     email = request.form.get('recipient')
     subject = request.form.get('subject')
     body = request.form.get('stripped-text')
@@ -87,8 +127,7 @@ def receive_email():
 
     return "OK", 200
 
-from flask import send_from_directory
-
+# ملفات السيو و التحقق
 @app.route('/robots.txt')
 def robots():
     return send_from_directory('static', 'robots.txt')
@@ -104,9 +143,8 @@ def ads():
 @app.route('/googleddb8bfe162a125fe.html')
 def google_verify():
     return send_from_directory('static', 'googleddb8bfe162a125fe.html')
-    
-import os
 
+# تشغيل التطبيق
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)

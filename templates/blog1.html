@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <title>Blog - Email Privacy Tips | Fakelymail</title>
   <meta name="description" content="Learn how to protect your privacy online using temporary emails. Discover in-depth guides on digital security, email spam, and anonymous browsing.">
-  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
@@ -15,6 +15,7 @@
   <main style="max-width: 800px; margin: auto; padding: 20px;">
     
     <section class="article-section" style="max-width: 900px; margin: auto; padding: 2rem 1rem; line-height: 1.8;">
+      <img src="{{ url_for('static', filename='images/blog1.jpg') }}" alt="Email Privacy Tips" style="max-width: 100%; border-radius: 8px; margin-bottom: 20px;">
       <h2>Privacy Tips: A Human Guide to Staying Safe Online</h2>
     
       <p>Hey there — welcome to this full, down-to-earth guide about online privacy. If you’re anything like me, you’ve probably clicked “I agree” on more cookie popups than you can count and shared your email address with websites you barely remember visiting. Don’t worry — you’re not alone.</p>
@@ -103,10 +104,9 @@
         <a href="/blog2" style="color: #0984e3; font-weight: bold; text-decoration: none;">Next → Email Tricks</a>
       </div>
       
-      <div style="text-align: center; margin-top: 20px;">
-        <a href="/" style="color: #0984e3; font-weight: bold; text-decoration: none;">🏠 Back to Home</a>
-      </div>
-  </main>
+      <footer style="text-align: center; padding: 30px 20px; color: gray;">
+        <a href="/" style="text-decoration: none; color: #00bfff; font-weight: 600;">← Back to Home</a>
+      </footer>
   
 </body>
 </html>
