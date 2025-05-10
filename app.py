@@ -25,9 +25,19 @@ def home():
     return render_template('home.html')
 
 # صفحة البريد المؤقت
-@app.route('/email')
+@app.route('/email', methods=['GET', 'POST'])
 def index():
-    email = generate_email()
+    if request.method == 'POST':
+        custom = request.form.get('custom_name')
+        if custom:
+            username = ''.join(filter(str.isalnum, custom.strip()))
+        else:
+            username = ''.join(random.choices(string.ascii_lowercase + string.digits, k=10))
+    else:
+        username = ''.join(random.choices(string.ascii_lowercase + string.digits, k=10))
+
+    domain = 'fakelymail.com'
+    email = f'{username}@{domain}'
     session['email'] = email
 
     if email not in inboxes:
@@ -39,6 +49,7 @@ def index():
 
     remaining = int(inboxes[email]['created_at'] + 1800 - time.time())
     return render_template('index.html', email=email, timer=remaining)
+
 
 # صفحات البلوق
 @app.route('/blog1')
