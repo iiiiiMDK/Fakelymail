@@ -52,45 +52,66 @@ def index():
 
 
 # صفحات البلوق
-@app.route('/blog1')
+
+@app.route('/mesothelioma-legal-help')
+def blog11():
+    return render_template('mesothelioma-legal-help.html')
+
+@app.route('/structured-settlements')
+def blog12():
+    return render_template('structured-settlements.html')
+
+@app.route('/credit-card-processing')
+def blog13():
+    return render_template('credit-card-processing.html')
+
+@app.route('/cybersecurity-small-business')
+def blog14():
+    return render_template('cybersecurity-small-business.html')
+
+@app.route('/digital-marketing-strategies')
+def blog15():
+    return render_template('digital-marketing-strategies.html')
+
+@app.route('/privacy-tips')
 def blog1():
-    return render_template('blog1.html')
+    return render_template('privacy-tips.html')
 
-@app.route('/blog2')
+@app.route('/email-tricks')
 def blog2():
-    return render_template('blog2.html')
+    return render_template('email-tricks.html')
 
-@app.route('/blog3')
+@app.route('/disposable-emails-benefits')
 def blog3():
-    return render_template('blog3.html')
+    return render_template('disposable-emails-benefits.html')
 
-@app.route('/blog4')
+@app.route('/stay-safe-online')
 def blog4():
-    return render_template('blog4.html')
+    return render_template('stay-safe-online.html')
 
-@app.route('/blog5')
+@app.route('/email-privacy-101')
 def blog5():
-    return render_template('blog5.html')
+    return render_template('email-privacy-101.html')
 
-@app.route('/blog6')
+@app.route('/guard-your-inbox-tips')
 def blog6():
-    return render_template('blog6.html')
+    return render_template('guard-your-inbox-tips.html')
 
-@app.route('/blog7')
+@app.route('/real-email-risks')
 def blog7():
-    return render_template('blog7.html')
+    return render_template('real-email-risks.html')
 
-@app.route('/blog8')
+@app.route('/avoid-shopping-spam')
 def blog8():
-    return render_template('blog8.html')
+    return render_template('avoid-shopping-spam.html')
 
-@app.route('/blog9')
+@app.route('/why-use-fakelymail')
 def blog9():
-    return render_template('blog9.html')
+    return render_template('why-use-fakelymail.html')
 
-@app.route('/blog10')
+@app.route('/protect-identity-online')
 def blog10():
-    return render_template('blog10.html')
+    return render_template('protect-identity-online.html')
 
 # تغيير الإيميل
 @app.route('/change')
