@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Terms and Conditions - Fakelymail</title>
+  <meta name="description" content="Read our Terms and Conditions to understand your responsibilities when using Fakelymail.">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f6fa;
+      color: #2f3640;
+      margin: 0;
+      padding: 0;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px;
+    }
+
+    .logo {
+      height: 60px;
+      width: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    #toggle-mode {
+      padding: 8px 14px;
+      background: #2d3436;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .content {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      margin-top: 2rem;
+      color: #2d3436;
+    }
+
+    ul {
+      padding-left: 20px;
+      margin: 1rem 0;
+    }
+
+    p {
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    body.dark-mode {
+      background: #2f3640;
+      color: #dfe6e9;
+    }
+
+    body.dark-mode h1,
+    body.dark-mode h2 {
+      color: #ffffff;
+    }
+
+    body.dark-mode #toggle-mode {
+      background: #0984e3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <a href="/"><img src="/static/logo.png" alt="Fakelymail Logo" class="logo" /></a>
+    <button id="toggle-mode" onclick="toggleMode()">🌙</button>
+  </div>
+
+  <div class="content">
+    <h1>Terms and Conditions </h1>
+    <p>By using Fakelymail, you agree to abide by the following terms and conditions. Please read them carefully before using the service.</p>
+
+    <h2>1. Use of Service</h2>
+    <p>Fakelymail provides disposable email addresses for short-term use. You may not use this service for unlawful, harmful, or abusive activities.</p>
+
+    <h2>2. Data Retention</h2>
+    <p>Messages are stored temporarily and deleted automatically. We do not provide long-term access or backup of your inbox.</p>
+
+    <h2>3. Prohibited Usage</h2>
+    <ul>
+      <li>Spamming or sending unsolicited emails</li>
+      <li>Phishing or fraudulent behavior</li>
+      <li>Infringing on copyrights or privacy rights</li>
+      <li>Attempting to access other users' inboxes</li>
+    </ul>
+
+    <h2>4. No Guarantees</h2>
+    <p>Fakelymail is provided "as is" without warranties. We do not guarantee uptime, delivery, or retention of messages.</p>
+
+    <h2>5. Privacy Respect</h2>
+    <p>We do not collect personal data. Please review our <a href="/privacy" style="color: #0984e3;">Privacy Policy</a> for more information.</p>
+  </div>
+
+  <script>
+    function toggleMode() {
+      const body = document.body;
+      body.classList.toggle('dark-mode');
+      const isDark = body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDark);
+      document.getElementById("toggle-mode").innerText = isDark ? "☀️" : "🌙";
+    }
+
+    window.onload = () => {
+      const isDark = localStorage.getItem('darkMode') === 'true';
+      if (isDark) {
+        document.body.classList.add('dark-mode');
+        document.getElementById("toggle-mode").innerText = "☀️";
+      }
+    }
+  </script>
+
+<footer style="text-align: center; padding: 30px 20px; color: gray;">
+    <a href="javascript:history.back()" style="text-decoration: none; color: #00bfff; font-weight: 600;">← Go Back</a>
+  </footer>
+
+</body>
+</html>

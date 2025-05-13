@@ -128,13 +128,21 @@ def get_messages():
     return jsonify([])
 
 # سياسة الخصوصية والتواصل
-@app.route('/privacy')
+@app.route('/Privacy')
 def privacy():
     return render_template('privacy.html')
 
-@app.route('/contact')
+@app.route('/Contact')
 def contact():
     return render_template('contact.html')
+
+@app.route('/Terms')
+def terms():
+    return render_template('terms.html')
+
+@app.route('/About')
+def about():
+    return render_template('about.html')    
 
 # استقبال الرسائل من Mailgun
 @app.route('/receive', methods=['POST'])
