@@ -1,4 +1,5 @@
 User-agent: *
-Disallow:
+Disallow: /static/
+Allow: /
 
 Sitemap: https://fakelymail.com/sitemap.xml
