@@ -328,71 +328,70 @@
     </div>
 
   </div>
-</section>
-<footer style="text-align: center; padding: 30px 15px; color: gray; font-size: 14px;">
-  <div style="margin-bottom: 10px;">
-    <a href="/Privacy" style="margin: 0 10px; color: #00bfff; text-decoration: none;">Privacy Policy</a> |
-    <a href="/Terms" style="margin: 0 10px; color: #00bfff; text-decoration: none;">Terms & Conditions</a> |
-    <a href="/Contact" style="margin: 0 10px; color: #00bfff; text-decoration: none;">Contact</a> |
-    <a href="/About" style="margin: 0 10px; color: #00bfff; text-decoration: none;">About Us</a>
-  </div>
-  <div style="margin-top: 10px;">&copy; 2025 fakelymail.com</div>
-</footer>
-<script>
-  fetch("https://ipapi.co/json/")
-    .then(res => res.json())
-    .then(data => {
-      const euCountries = [
-        "AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE",
-        "GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT",
-        "RO","SK","SI","ES","SE","IS","NO","LI","CH","GB"
-      ];
-
-      if (!euCountries.includes(data.country)) return;
-
-      gtag('consent', 'default', {
-        ad_storage: 'denied',
-        analytics_storage: 'denied'
-      });
-
-      const banner = document.createElement('div');
-      banner.style.cssText = `
-        position: fixed; bottom: 20px; left: 50%;
-        transform: translateX(-50%);
-        background: #f1f1f1; color: #2d3436;
-        padding: 20px; border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        z-index: 9999; max-width: 90%; font-family: 'Segoe UI', sans-serif;
-      `;
-
-      banner.innerHTML = `
-        <p style="margin-bottom:10px;">We use cookies to improve your experience. Do you consent?</p>
-        <div style="display:flex; justify-content:center; gap:10px;">
-          <button style="padding:10px 20px; background:#2ecc71; color:white; border:none; border-radius:5px; cursor:pointer;">Accept</button>
-          <button style="padding:10px 20px; background:#e74c3c; color:white; border:none; border-radius:5px; cursor:pointer;">Decline</button>
-        </div>
-      `;
-
-      const [acceptBtn, declineBtn] = banner.querySelectorAll('button');
-
-      acceptBtn.onclick = () => {
-        gtag('consent', 'update', {
-          ad_storage: 'granted',
-          analytics_storage: 'granted'
-        });
-        banner.remove();
-      };
-
-      declineBtn.onclick = () => {
-        gtag('consent', 'update', {
+  <script>
+    fetch("https://ipapi.co/json/")
+      .then(res => res.json())
+      .then(data => {
+        const euCountries = [
+          "AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE",
+          "GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT",
+          "RO","SK","SI","ES","SE","IS","NO","LI","CH","GB"
+        ];
+  
+        // نتحقق إذا الزائر من أوروبا
+        if (!euCountries.includes(data.country)) return;
+  
+        // إذا وافق سابقًا، لا نعرض له شيء
+        const consent = localStorage.getItem('cookieConsent');
+        if (consent === 'accepted') return;
+  
+        // نوقف مؤقتًا Google Ads و Analytics
+        gtag('consent', 'default', {
           ad_storage: 'denied',
           analytics_storage: 'denied'
         });
-        banner.remove();
-      };
-
-      document.body.appendChild(banner);
-    });
-</script>
+  
+        // نصنع البانر
+        const banner = document.createElement('div');
+        banner.style.cssText = `
+          position: fixed; bottom: 20px; left: 50%;
+          transform: translateX(-50%);
+          background: #f1f1f1; color: #2d3436;
+          padding: 20px; border-radius: 10px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+          z-index: 9999; max-width: 90%; font-family: 'Segoe UI', sans-serif;
+        `;
+  
+        banner.innerHTML = `
+          <p style="margin-bottom:10px;">We use cookies to improve your experience. Do you consent?</p>
+          <div style="display:flex; justify-content:center; gap:10px;">
+            <button style="padding:10px 20px; background:#2ecc71; color:white; border:none; border-radius:5px; cursor:pointer;">Accept</button>
+            <button style="padding:10px 20px; background:#e74c3c; color:white; border:none; border-radius:5px; cursor:pointer;">Decline</button>
+          </div>
+        `;
+  
+        const [acceptBtn, declineBtn] = banner.querySelectorAll('button');
+  
+        acceptBtn.onclick = () => {
+          localStorage.setItem('cookieConsent', 'accepted');
+          gtag('consent', 'update', {
+            ad_storage: 'granted',
+            analytics_storage: 'granted'
+          });
+          banner.remove();
+        };
+  
+        declineBtn.onclick = () => {
+          // لا نخزن شيء، عشان يطلع له البانر مرة ثانية لو رفض
+          gtag('consent', 'update', {
+            ad_storage: 'denied',
+            analytics_storage: 'denied'
+          });
+          banner.remove();
+        };
+  
+        document.body.appendChild(banner);
+      });
+  </script>
 </body>
 </html>
