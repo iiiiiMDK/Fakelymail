@@ -54,23 +54,22 @@
     }
 
     .email-box {
-      background: #fff;
-      border: 1px solid #dcdde1;
-      padding: 1rem;
-      border-radius: 10px;
-      margin: 1rem 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .email-address {
-      font-size: 1.1rem;
-      word-break: break-word;
-      flex: 1;
-      margin-bottom: 0.5rem;
-    }
+  background: #fff;
+  border: 1px solid #dcdde1;
+  padding: 1rem;
+  border-radius: 10px;
+  margin: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.email-address {
+  font-size: 1.1rem;
+  word-break: break-word;
+  flex: 1;
+  margin-bottom: 0.5rem;
+}
 
     .buttons-group {
       display: flex;
@@ -260,16 +259,14 @@
 
     <p style="text-align:center;">Your temporary email address:</p>
     
-    <div>
-      <label for="custom-email">Choose a custom email name:</label><br>
-      <input type="text" id="custom-email" placeholder="e.g., ali" oninput="checkEmail()" />
-      <span>@fakelymail.com</span>
-      <div id="email-error">❌ This email address is currently in use. Please try a different one.</div>
+    <div class="email-box">
+      <div class="email-address" id="email">{{ email }}</div>
+      <div>
+        <button title="📋 Copy Email" onclick="copyEmail()">📋</button>
+        <button title="🔄 Change Email" onclick="changeEmail()">🔄</button>
+      </div>
     </div>
-            <button title="📋 Copy Email" onclick="copyEmail()">📋</button>
-            <button title="🔄 Change Email" onclick="changeEmail()">🔄</button>
-          </div>
-        </div>
+    
     
     <div id="timer" class="timer-box">⏳ {{ timer }}s</div>
     <p style="text-align: center; margin-bottom: 1rem;">Check your temporary email inbox. Messages appear here instantly!</p>
@@ -588,31 +585,27 @@
   
     <p>So next time a site asks for your email and you hesitate — don’t. Open Fakelymail, grab a temporary email, and move on with confidence. Your real inbox will thank you.</p>
   </section>
- 
-
-</footer>
-<script>
-  async function checkEmail() {
-    const name = document.getElementById('custom-email').value.trim();
-    if (name === "") {
-      document.getElementById('email-error').style.display = 'none';
-      return;
-    }
-
-    try {
-      const response = await fetch(`/check-email?name=${encodeURIComponent(name)}`);
-      const data = await response.json();
-
-      if (data.exists) {
-        document.getElementById('email-error').style.display = 'block';
-      } else {
-        document.getElementById('email-error').style.display = 'none';
+  <footer style="text-align: center; padding: 30px 15px; color: gray; font-size: 14px;">
+    <div style="margin-bottom: 10px;">
+      <a href="/Privacy" style="margin: 0 10px; color: #00bfff; text-decoration: none;">Privacy Policy</a> |
+      <a href="/Terms" style="margin: 0 10px; color: #00bfff; text-decoration: none;">Terms & Conditions</a> |
+      <a href="/Contact" style="margin: 0 10px; color: #00bfff; text-decoration: none;">Contact</a> |
+      <a href="/About" style="margin: 0 10px; color: #00bfff; text-decoration: none;">About Us</a>
+    </div>
+    <div class="hidden-blogs"></div>
+    <style>
+      .hidden-blogs {
+        display: none;
       }
-    } catch (error) {
-      console.error("Error checking email:", error);
-    }
-  }
-</script>
-
+    </style>
+    
+  </footer>
+  <div class="logo-container">
+    <a href="/">
+      <img src="/static/logo.png" alt="Fakelymail Logo" class="logo">
+    </a>
+  </div>
+  <button id="toggle-mode" onclick="toggleMode()">🌙</button>
+  
 </body>
 </html>
