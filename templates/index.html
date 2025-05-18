@@ -258,7 +258,7 @@
     </div>
 
     <p style="text-align:center;">Your temporary email address:</p>
-    
+
     <div class="email-box">
       <div class="email-address" id="email">{{ email }}</div>
       <div>
@@ -266,6 +266,7 @@
         <button title="🔄 Change Email" onclick="changeEmail()">🔄</button>
       </div>
     </div>
+   
     
     
     <div id="timer" class="timer-box">⏳ {{ timer }}s</div>
@@ -290,9 +291,9 @@
     }
 
     function copyEmail() {
-      navigator.clipboard.writeText(document.getElementById("email").innerText);
-      showToast("Email copied!");
-    }
+  navigator.clipboard.writeText(document.getElementById("email").innerText);
+  showToast("Email copied!");
+}
 
     function changeEmail() {
   fetch('/change').then(() => {
@@ -584,6 +585,63 @@
     <p>Let’s face it — your real inbox deserves better. Instead of giving your personal email to every site that asks, give them something temporary. Fakelymail gives you back control, privacy, and peace of mind. It’s fast, free, anonymous, and just works. Whether you use it once or every day, it’s one of the easiest tools to stay safe online.</p>
   
     <p>So next time a site asks for your email and you hesitate — don’t. Open Fakelymail, grab a temporary email, and move on with confidence. Your real inbox will thank you.</p>
+  
+    <section style="max-width: 800px; margin: 60px auto; text-align: left;">
+      <h2 style="text-align: center;">📚 Latest from Our Blog</h2>
+      
+      <div style="display: flex; flex-direction: column; gap: 25px; margin-top: 30px;">
+        
+        <!-- 👇 هذا السطر مسؤول عن حجم الصورة (width) -->
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <img src="{{ url_for('static', filename='images/blog1.png') }}" alt="Privacy Tips" style="width: 100px; height: auto; border-radius: 6px;">
+          <a href="/privacy-tips" style="font-size: 18px; color: #0984e3; font-weight: bold; text-decoration: none;">Privacy Tips</a>
+        </div>
+    
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <img src="{{ url_for('static', filename='images/blog2.png') }}" alt="Email Tricks" style="width: 100px; height: auto; border-radius: 6px;">
+          <a href="/email-tricks" style="font-size: 18px; color: #0984e3; font-weight: bold; text-decoration: none;">Email Tricks</a>
+        </div>
+    
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <img src="{{ url_for('static', filename='images/blog3.png') }}" alt="How Disposable Emails Simplify Your Life" style="width: 100px; height: auto; border-radius: 6px;">
+          <a href="/disposable-emails-benefits" style="font-size: 18px; color: #0984e3; font-weight: bold; text-decoration: none;">How Disposable Emails Simplify Your Life</a>
+        </div>
+    
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <img src="{{ url_for('static', filename='images/blog4.png') }}" alt="Stay Safe on Unknown Websites" style="width: 100px; height: auto; border-radius: 6px;">
+          <a href="/stay-safe-online" style="font-size: 18px; color: #0984e3; font-weight: bold; text-decoration: none;">Stay Safe on Unknown Websites</a>
+        </div>
+    
+        <div style="display: flex; align-items: center; gap: 15px;"> 
+          <img src="{{ url_for('static', filename='images/blog5.png') }}" alt="Email Privacy 101" style="width: 100px; height: auto; border-radius: 6px;">
+          <a href="/email-privacy-101" style="font-size: 18px; color: #0984e3; font-weight: bold; text-decoration: none;">Email Privacy 101</a>
+        </div>
+    
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <img src="{{ url_for('static', filename='images/blog6.png') }}" alt="10 Pro Tips to Guard Your Inbox" style="width: 100px; height: auto; border-radius: 6px;">
+          <a href="/guard-your-inbox-tips" style="font-size: 18px; color: #0984e3; font-weight: bold; text-decoration: none;">10 Pro Tips to Guard Your Inbox</a>
+        </div>
+    
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <img src="{{ url_for('static', filename='images/blog7.png') }}" alt="Dangers of Using Real Email" style="width: 100px; height: auto; border-radius: 6px;">
+          <a href="/real-email-risks" style="font-size: 18px; color: #0984e3; font-weight: bold; text-decoration: none;">Dangers of Using Real Email</a>
+        </div>
+    
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <img src="{{ url_for('static', filename='images/blog8.png') }}" alt="Avoid Spam from Shopping Sites" style="width: 100px; height: auto; border-radius: 6px;">
+          <a href="/avoid-shopping-spam" style="font-size: 18px; color: #0984e3; font-weight: bold; text-decoration: none;">Avoid Spam from Shopping Sites</a>
+        </div>
+    
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <img src="{{ url_for('static', filename='images/blog9.png') }}" alt="Why Fakelymail is a Smart Choice" style="width: 100px; height: auto; border-radius: 6px;">
+          <a href="/why-use-fakelymail" style="font-size: 18px; color: #0984e3; font-weight: bold; text-decoration: none;">Why Fakelymail is a Smart Choice</a>
+        </div>
+    
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <img src="{{ url_for('static', filename='images/blog10.png') }}" alt="How to Protect Your Identity Online" style="width: 100px; height: auto; border-radius: 6px;">
+          <a href="/protect-identity-online" style="font-size: 18px; color: #0984e3; font-weight: bold; text-decoration: none;">How to Protect Your Identity Online</a>
+        </div>
+  
   </section>
   <footer style="text-align: center; padding: 30px 15px; color: gray; font-size: 14px;">
     <div style="margin-bottom: 10px;">
