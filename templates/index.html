@@ -225,18 +225,7 @@
       }
     }
   </style>
-<script src="{{ url_for('static', filename='consent.js') }}"></script>
-<meta name="language" content="en">
-<meta name="content-language" content="en">
-<meta name="geo.region" content="US">
-<meta name="geo.country" content="US">
 
-<link rel="alternate" href="https://fakelymail.com/" hreflang="en-us" />
-<link rel="alternate" href="https://fakelymail.com/" hreflang="en" />
-<link rel="alternate" href="https://fakelymail.com/" hreflang="x-default" />
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9118501667316922"
-     crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -397,110 +386,7 @@
 <div style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: gray;">
  
 </div>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const consent = localStorage.getItem('cookieConsent');
-  
-    if (consent === 'accepted') {
-      return;
-    }
-  
-    const banner = document.createElement('div');
-    banner.id = 'cookie-banner';
-    banner.style.cssText = `
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%) scale(0.9);
-      background-color: #f1f1f1;
-      color: #2d3436;
-      padding: 20px 25px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-      text-align: center;
-      width: auto;
-      max-width: 90%;
-      z-index: 9999;
-      font-family: 'Segoe UI', sans-serif;
-      opacity: 0;
-      transition: all 0.6s ease;
-    `;
-  
-    const text = document.createElement('p');
-    text.textContent = "We use cookies to improve your experience. Do you consent to cookies?";
-    text.style.marginBottom = '15px';
-    text.style.fontSize = '16px';
-    text.style.wordBreak = 'break-word';
-    text.style.margin = '0 auto';
-  
-    const buttonContainer = document.createElement('div');
-    buttonContainer.style.cssText = `
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 15px;
-    `;
-  
-    const acceptBtn = document.createElement('button');
-    acceptBtn.textContent = 'Accept';
-    acceptBtn.style.cssText = `
-      background-color: #2ecc71;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      font-size: 15px;
-      cursor: pointer;
-    `;
-  
-    const declineBtn = document.createElement('button');
-    declineBtn.textContent = 'Decline';
-    declineBtn.style.cssText = `
-      background-color: #e74c3c;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      font-size: 15px;
-      cursor: pointer;
-    `;
-  
-    acceptBtn.onclick = function() {
-      localStorage.setItem('cookieConsent', 'accepted');
-      banner.style.opacity = '0';
-      setTimeout(() => { banner.remove(); }, 600);
-    };
-  
-    declineBtn.onclick = function() {
-      banner.style.opacity = '0';
-      setTimeout(() => { banner.remove(); }, 600);
-    };
-  
-    buttonContainer.appendChild(acceptBtn);
-    buttonContainer.appendChild(declineBtn);
-    banner.appendChild(text);
-    banner.appendChild(buttonContainer);
-    document.body.appendChild(banner);
-  
-    setTimeout(() => {
-      banner.style.opacity = '1';
-      banner.style.transform = 'translateX(-50%) scale(1)';
-    }, 100);
-  
-    const observer = new MutationObserver(() => {
-      if (document.body.classList.contains('dark-mode')) {
-        banner.style.backgroundColor = '#2f3640';
-        banner.style.color = '#dfe6e9';
-      } else {
-        banner.style.backgroundColor = '#f1f1f1';
-        banner.style.color = '#2d3436';
-      }
-    });
-  
-    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-  });
-</script>
+
 <section class="article-section" style="margin-top: 50px; line-height: 1.7; max-width: 800px; margin-left: auto; margin-right: auto; padding: 0 1rem;">
  
   <section style="margin-top: 40px;">
