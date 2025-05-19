@@ -211,27 +211,50 @@
   <h1>Welcome to Fakelymail</h1>
   <p>Your instant, disposable email — no sign up, no hassle.</p>
 
-  <form action="/email" method="post" style="margin-top: 30px; text-align: center;">
-    <label for="custom_name" style="font-size: 18px;">Choose your email name (optional):</label><br>
-    <input type="text" id="custom_name" name="custom_name" placeholder="your name"
-           style="padding: 10px; width: 300px; margin-top: 10px; border-radius: 6px; border: 1px solid #ccc;"><br><br>
-  
-           <button type="submit" style="
-           padding: 15px 30px;
-           font-size: 20px;
-           background-color: #27ae60;
-           color: white;
-           border: none;
-           border-radius: 10px;
-           cursor: pointer;
-           box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-           transition: transform 0.2s ease, background-color 0.3s ease;
-         ">
-           📨 Create My Temp Email
-         </button>
-  </form>
-  
-  
+  <!-- زر تخصيص الاسم -->
+<!-- زر التخصيص -->
+<button onclick="toggleCustomInput()" 
+style="background-color: #8e44ad; color: white; font-size: 14px; padding: 8px 8px; border: none; border-radius: 8px; cursor: pointer; margin-bottom: 1px;">
+✏️ Customize Email (Optional)
+</button>
+
+<!-- خانة الاسم -->
+<div id="customInput" style="display: none; margin-bottom: 15px;">
+<input type="text" id="custom_name" name="custom_name" placeholder="Enter your name" 
+  style="padding: 10px; width: 300px; border-radius: 6px; border: 1px solid #ccc;">
+</div>
+
+<div style="height: 30px;"></div>
+
+<!-- زر إنشاء الإيميل -->
+<button type="submit" style="
+padding: 15px 30px;
+font-size: 20px;
+background-color: #27ae60;
+color: white;
+border: none;
+border-radius: 20px;
+cursor: pointer;
+box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+transition: transform 0.2s ease, background-color 0.3s ease;
+">
+📨 Create My Temp Email
+</button>
+
+<script>
+  function toggleCustomInput() {
+    const container = document.getElementById('customInputContainer');
+    container.style.display = container.style.display === 'none' ? 'block' : 'none';
+  }
+
+  document.querySelector('form').addEventListener('submit', function (e) {
+    const value = document.getElementById('customInput').value;
+    document.getElementById('custom_name_hidden').value = value;
+  });
+  function toggleCustomInput() {
+    var inputDiv = document.getElementById("customInput");
+    inputDiv.style.display = inputDiv.style.display === "none" ? "block" : "none";
+  }
 </script>
  
   <script>
