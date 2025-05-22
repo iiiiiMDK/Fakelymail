@@ -176,6 +176,16 @@
   body.dark-mode a.footer-link {
     color: #ffffff !important;
   }
+
+  body.dark-mode .goog-te-gadget {
+    color: white !important;
+  }
+
+  body.dark-mode select.goog-te-combo {
+    background-color: #2f3640;
+    color: white;
+    border: 1px solid #555;
+  }
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9118501667316922"
      crossorigin="anonymous"></script>
@@ -190,6 +200,9 @@
       <img src="/static/logo.png" alt="Fakelymail Logo" class="logo">
     </a>
   </div>
+  
+  <div id="google_translate_element" style="text-align: center; margin-top: 20px;"></div>
+
 
   <!-- زر الوضع الليلي -->
   <button id="toggle-mode" onclick="toggleMode()">🌙</button>
@@ -351,72 +364,7 @@
       <a href="/protect-identity-online" style="font-size: 18px; color: #0984e3; font-weight: bold; text-decoration: none;">How to Protect Your Identity Online</a>
     </div>
 
-  </div>
-  <script>
-    fetch("https://ipapi.co/json/")
-      .then(res => res.json())
-      .then(data => {
-        const euCountries = [
-          "AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE",
-          "GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT",
-          "RO","SK","SI","ES","SE","IS","NO","LI","CH","GB"
-        ];
-  
-        // نتحقق إذا الزائر من أوروبا
-        if (!euCountries.includes(data.country)) return;
-  
-        // إذا وافق سابقًا، لا نعرض له شيء
-        const consent = localStorage.getItem('cookieConsent');
-        if (consent === 'accepted') return;
-  
-        // نوقف مؤقتًا Google Ads و Analytics
-        gtag('consent', 'default', {
-          ad_storage: 'denied',
-          analytics_storage: 'denied'
-        });
-  
-        // نصنع البانر
-        const banner = document.createElement('div');
-        banner.style.cssText = `
-          position: fixed; bottom: 20px; left: 50%;
-          transform: translateX(-50%);
-          background: #f1f1f1; color: #2d3436;
-          padding: 20px; border-radius: 10px;
-          box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-          z-index: 9999; max-width: 90%; font-family: 'Segoe UI', sans-serif;
-        `;
-  
-        banner.innerHTML = `
-          <p style="margin-bottom:10px;">We use cookies to improve your experience. Do you consent?</p>
-          <div style="display:flex; justify-content:center; gap:10px;">
-            <button style="padding:10px 20px; background:#2ecc71; color:white; border:none; border-radius:5px; cursor:pointer;">Accept</button>
-            <button style="padding:10px 20px; background:#e74c3c; color:white; border:none; border-radius:5px; cursor:pointer;">Decline</button>
-          </div>
-        `;
-  
-        const [acceptBtn, declineBtn] = banner.querySelectorAll('button');
-  
-        acceptBtn.onclick = () => {
-          localStorage.setItem('cookieConsent', 'accepted');
-          gtag('consent', 'update', {
-            ad_storage: 'granted',
-            analytics_storage: 'granted'
-          });
-          banner.remove();
-        };
-  
-        declineBtn.onclick = () => {
-          // لا نخزن شيء، عشان يطلع له البانر مرة ثانية لو رفض
-          gtag('consent', 'update', {
-            ad_storage: 'denied',
-            analytics_storage: 'denied'
-          });
-          banner.remove();
-        };
-  
-        document.body.appendChild(banner);
-      });
-  </script>
+
   <footer style="text-align: center; padding: 30px 15px; color: gray; font-size: 14px;">
     <div style="margin-bottom: 10px;">
       <a href="/Privacy" style="margin: 0 10px; color: #00bfff; text-decoration: none;">Privacy Policy</a> |
@@ -433,5 +381,49 @@
     
   </footer>
   
+  
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: '',
+      autoDisplay: false,
+      layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+    }, 'google_translate_element');
+  }
+</script>
+
+<script type="text/javascript">
+  // Detect and auto-select visitor's browser language
+  function setLanguageByBrowser() {
+    const userLang = navigator.language || navigator.userLanguage;
+    if (userLang && userLang !== 'en') {
+      const langCode = userLang.split('-')[0];
+      const interval = setInterval(() => {
+        const select = document.querySelector('.goog-te-combo');
+        if (select) {
+          select.value = langCode;
+          select.dispatchEvent(new Event('change'));
+          clearInterval(interval);
+        }
+      }, 500);
+    }
+  }
+
+  // Load Google Translate script
+  function loadGoogleTranslate() {
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+    document.body.appendChild(script);
+  }
+
+  window.addEventListener('load', () => {
+    loadGoogleTranslate();
+    setTimeout(setLanguageByBrowser, 2000); // Give it time to load
+  });
+</script>
+  
+
 </body>
 </html>

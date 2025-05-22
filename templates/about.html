@@ -85,6 +85,10 @@ crossorigin="anonymous"></script>
 
   <div class="top-bar">
     <a href="/"><img src="/static/logo.png" alt="Fakelymail Logo" class="logo" /></a>
+
+    <div id="google_translate_element" style="text-align: right; padding: 10px 20px;"></div>
+
+
     <button id="toggle-mode" onclick="toggleMode()">🌙</button>
   </div>
 
@@ -128,6 +132,48 @@ crossorigin="anonymous"></script>
 <footer style="text-align: center; padding: 30px 20px; color: gray;">
     <a href="javascript:history.back()" style="text-decoration: none; color: #00bfff; font-weight: 600;">← Go Back</a>
   </footer>
+
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: '',
+        autoDisplay: false,
+        layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+      }, 'google_translate_element');
+    }
+  </script>
+  
+  <script type="text/javascript">
+    // Detect and auto-select visitor's browser language
+    function setLanguageByBrowser() {
+      const userLang = navigator.language || navigator.userLanguage;
+      if (userLang && userLang !== 'en') {
+        const langCode = userLang.split('-')[0];
+        const interval = setInterval(() => {
+          const select = document.querySelector('.goog-te-combo');
+          if (select) {
+            select.value = langCode;
+            select.dispatchEvent(new Event('change'));
+            clearInterval(interval);
+          }
+        }, 500);
+      }
+    }
+  
+    // Load Google Translate script
+    function loadGoogleTranslate() {
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      document.body.appendChild(script);
+    }
+  
+    window.addEventListener('load', () => {
+      loadGoogleTranslate();
+      setTimeout(setLanguageByBrowser, 2000); // Give it time to load
+    });
+  </script>
 
 </body>
 </html>
