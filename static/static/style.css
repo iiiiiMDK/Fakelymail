@@ -108,3 +108,17 @@ body {
       width: 100%;
       margin-top: 5px;
     }
+  }
+  .ad-left {
+    position: fixed;
+    top: 100px;
+    left: 10px;
+    z-index: 999;
+  }
+  
+  .ad-right {
+    position: fixed;
+    top: 100px;
+    right: 10px;
+    z-index: 999;
+  }
